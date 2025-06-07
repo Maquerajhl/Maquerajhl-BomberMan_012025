@@ -23,6 +23,5 @@ protected:
 	virtual void BeginPlay() override;
 
 public: 
-	// ¡Implementación obligatoria del método virtual puro!
 	virtual void InicializarMallaBloque() override;
 };

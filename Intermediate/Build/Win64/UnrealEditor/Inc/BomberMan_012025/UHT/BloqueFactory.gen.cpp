@@ -29,14 +29,8 @@ struct Z_Construct_UClass_ABloqueFactory_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Declaraci\xef\xbf\xbdn adelantada\n" },
-#endif
 		{ "IncludePath", "BloqueFactory.h" },
 		{ "ModuleRelativePath", "BloqueFactory.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Declaraci\xef\xbf\xbdn adelantada" },
-#endif
 	};
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
@@ -85,10 +79,10 @@ ABloqueFactory::~ABloqueFactory() {}
 struct Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueFactory_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloqueFactory, ABloqueFactory::StaticClass, TEXT("ABloqueFactory"), &Z_Registration_Info_UClass_ABloqueFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueFactory), 1364181092U) },
+		{ Z_Construct_UClass_ABloqueFactory, ABloqueFactory::StaticClass, TEXT("ABloqueFactory"), &Z_Registration_Info_UClass_ABloqueFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueFactory), 4228789234U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueFactory_h_3558238357(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueFactory_h_466372132(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueFactory_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueFactory_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

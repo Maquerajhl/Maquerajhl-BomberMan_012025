@@ -10,6 +10,6 @@ class BOMBERMAN_012025_API ABloqueLadrilloFactory : public ABloqueFactory
 	GENERATED_BODY()
 
 public:
-	// Implementación obligatoria del Factory Method
+	// obligatorio pata Factory Method
 	virtual ABloque* CrearBloque() override;
 };

@@ -1,4 +1,3 @@
-// Bloque.cpp (Modificado)
 #include "Bloque.h"
 #include "Components/StaticMeshComponent.h" 
 

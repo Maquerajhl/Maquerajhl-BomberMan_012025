@@ -18,6 +18,5 @@ public:
 
 
 public:
-	// ¡Implementación obligatoria del método virtual puro!
 	virtual void InicializarMallaBloque() override;
 };

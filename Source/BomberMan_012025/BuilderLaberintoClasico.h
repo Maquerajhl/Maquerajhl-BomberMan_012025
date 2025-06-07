@@ -16,7 +16,6 @@ public:
 	// Sets default values for this actor's properties
 	ABuilderLaberintoClasico();
 
-	// Implementación de la interfaz
 	virtual void CrearBordes(FString tipoBloque) override;
 	virtual void CrearMuros(FString tipoBloque) override;
 	virtual void CrearPasillos(FString tipoBloque) override;

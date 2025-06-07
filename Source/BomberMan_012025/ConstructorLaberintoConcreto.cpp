@@ -1,6 +1,4 @@
-// BomberMan_012025/Source/BomberMan_012025/ConstructorLaberintoConcreto.cpp // Possible file path
-#include "ConstructorLaberintoConcreto.h" // MODIFIED: Removed "Laberinto/" prefix
-// Incluye las clases concretas de tus Factories
+#include "ConstructorLaberintoConcreto.h"
 #include "BloqueAceroFactory.h"
 #include "BloqueBurbujaFactory.h"
 #include "BloqueConcretoFactory.h"
@@ -8,10 +6,9 @@
 #include "BloqueMaderaFactory.h"
 #include "BloqueFactory.h"
 #include "Bloque.h"
-// Otros includes de Unreal
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
-#include "Engine/Engine.h" // Necesario para GEngine->AddOnScreenDebugMessage
+#include "Engine/Engine.h"
 
 AConstructorLaberintoConcreto::AConstructorLaberintoConcreto()
 {
@@ -26,7 +23,6 @@ void AConstructorLaberintoConcreto::BeginPlay()
     UWorld* Mundo = GetWorld();
     if (!Mundo)
     {
-        UE_LOG(LogTemp, Error, TEXT("AConstructorLaberintoConcreto::BeginPlay - No se pudo obtener el Mundo."));
         if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: ConstructorLaberintoConcreto - No se pudo obtener el Mundo."));
         return;
     }
@@ -35,7 +31,6 @@ void AConstructorLaberintoConcreto::BeginPlay()
     ParametrosSpawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     ParametrosSpawn.bNoFail = true;
 
-    // Instanciar y almacenar los factories en el mapa
     FactoriasBloques.Add(ECodigoBloque::GENERICO, Mundo->SpawnActor<ABloqueFactory>(FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn));
     FactoriasBloques.Add(ECodigoBloque::ACERO, Mundo->SpawnActor<ABloqueAceroFactory>(FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn));
     FactoriasBloques.Add(ECodigoBloque::BURBUJA, Mundo->SpawnActor<ABloqueBurbujaFactory>(FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn));
@@ -43,13 +38,11 @@ void AConstructorLaberintoConcreto::BeginPlay()
     FactoriasBloques.Add(ECodigoBloque::LADRILLO, Mundo->SpawnActor<ABloqueLadrilloFactory>(FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn));
     FactoriasBloques.Add(ECodigoBloque::MADERA, Mundo->SpawnActor<ABloqueMaderaFactory>(FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn));
 
-    // Verificar que todos los factories se hayan creado correctamente
     for (const auto& Elemento : FactoriasBloques)
     {
         if (!Elemento.Value)
         {
-            FString MensajeError = FString::Printf(TEXT("AConstructorLaberintoConcreto::BeginPlay - Falló el spawn de la factoría para el Código de Bloque: %d"), (int32)Elemento.Key);
-            UE_LOG(LogTemp, Error, TEXT("%s"), *MensajeError);
+            FString MensajeError = FString::Printf(TEXT("AConstructorLaberintoConcreto::BeginPlay - Fallo el spawn de la factoria para el Codigo de Bloque: %d"), (int32)Elemento.Key);
             if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, MensajeError);
         }
     }
@@ -70,7 +63,6 @@ void AConstructorLaberintoConcreto::EndPlay(const EEndPlayReason::Type EndPlayRe
     }*/
     FactoriasBloques.Empty();
     FString Mensaje = TEXT("AConstructorLaberintoConcreto: Factories de bloques destruidos.");
-    UE_LOG(LogTemp, Log, TEXT("%s"), *Mensaje);
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, Mensaje);
 }
 
@@ -85,7 +77,6 @@ void AConstructorLaberintoConcreto::Reiniciar()
         LaberintoActualProducto = NewObject<UMaestroLaberintoProducto>(this, TEXT("ProductoLaberintoActual"));
     }
     FString Mensaje = TEXT("ConstructorLaberintoConcreto: Laberinto actual reiniciado.");
-    UE_LOG(LogTemp, Log, TEXT("%s"), *Mensaje);
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, Mensaje);
 }
 
@@ -94,7 +85,6 @@ void AConstructorLaberintoConcreto::ConstruirCapa(const TArray<TArray<int32>>& P
     UWorld* Mundo = GetWorld();
     if (!LaberintoActualProducto || !Mundo)
     {
-        UE_LOG(LogTemp, Error, TEXT("AConstructorLaberintoConcreto::ConstruirCapa - LaberintoActualProducto o Mundo es nulo."));
         if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: ConstructorLaberintoConcreto - LaberintoProducto o Mundo es nulo para construir capa."));
         return;
     }
@@ -131,22 +121,19 @@ void AConstructorLaberintoConcreto::ConstruirCapa(const TArray<TArray<int32>>& P
                     }
                     else
                     {
-                        FString MensajeAdvertencia = FString::Printf(TEXT("AConstructorLaberintoConcreto::ConstruirCapa - Falló la creación del bloque para el código %d en (%d, %d, %.1f)"), (int32)CodigoBloque, Columna, Fila, PosicionZ);
-                        UE_LOG(LogTemp, Warning, TEXT("%s"), *MensajeAdvertencia);
+                        FString MensajeAdvertencia = FString::Printf(TEXT("AConstructorLaberintoConcreto::ConstruirCapa - Fallo la creacion del bloque para el codigo %d en (%d, %d, %.1f)"), (int32)CodigoBloque, Columna, Fila, PosicionZ);
                         if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, MensajeAdvertencia);
                     }
                 }
                 else
                 {
-                    FString MensajeAdvertencia = FString::Printf(TEXT("AConstructorLaberintoConcreto::ConstruirCapa - No se encontró factoría para el código de bloque %d."), (int32)CodigoBloque);
-                    UE_LOG(LogTemp, Warning, TEXT("%s"), *MensajeAdvertencia);
+                    FString MensajeAdvertencia = FString::Printf(TEXT("AConstructorLaberintoConcreto::ConstruirCapa - No se encontro factoria para el codigo de bloque %d."), (int32)CodigoBloque);
                     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, MensajeAdvertencia);
                 }
             }
         }
     }
-    FString Mensaje = FString::Printf(TEXT("ConstructorLaberintoConcreto: Capa en Z=%.1f construida. Bloques añadidos: %d"), PosicionZ, LaberintoActualProducto->BloquesGenerados.Num());
-    UE_LOG(LogTemp, Log, TEXT("%s"), *Mensaje);
+    FString Mensaje = FString::Printf(TEXT("ConstructorLaberintoConcreto: Capa en Z=%.1f construida. Bloques aÃ±adidos: %d"), PosicionZ, LaberintoActualProducto->BloquesGenerados.Num());
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, Mensaje);
 }
 

@@ -5,9 +5,9 @@
 #include "GameFramework/Actor.h"
 #include "BloqueFactory.generated.h"
 
-class ABloque; // Declaración adelantada
+class ABloque; 
 
-UCLASS(Abstract) // La clase base del Factory es abstracta
+UCLASS(Abstract) 
 class BOMBERMAN_012025_API ABloqueFactory : public AActor
 {
 	GENERATED_BODY()
@@ -20,10 +20,6 @@ protected:
 
 public:
 	virtual void Tick(float DeltaTime) override;
-
-	// EL FACTORY METHOD: Un método virtual puro que las subclases deberán implementar
-	// para crear el tipo específico de bloque.
-	// Retorna un puntero al tipo base ABloque.
 	virtual ABloque* CrearBloque() PURE_VIRTUAL(CrearBloque, return nullptr;);
 
 };

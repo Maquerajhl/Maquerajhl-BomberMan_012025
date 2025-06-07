@@ -80,10 +80,10 @@ ABloqueConcretoFactory::~ABloqueConcretoFactory() {}
 struct Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueConcretoFactory_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloqueConcretoFactory, ABloqueConcretoFactory::StaticClass, TEXT("ABloqueConcretoFactory"), &Z_Registration_Info_UClass_ABloqueConcretoFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueConcretoFactory), 3610041408U) },
+		{ Z_Construct_UClass_ABloqueConcretoFactory, ABloqueConcretoFactory::StaticClass, TEXT("ABloqueConcretoFactory"), &Z_Registration_Info_UClass_ABloqueConcretoFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueConcretoFactory), 2194851432U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueConcretoFactory_h_3629483017(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueConcretoFactory_h_2365279339(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueConcretoFactory_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BloqueConcretoFactory_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

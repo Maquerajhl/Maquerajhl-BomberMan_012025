@@ -10,6 +10,6 @@ class BOMBERMAN_012025_API ABloqueMaderaFactory : public ABloqueFactory
 	GENERATED_BODY()
 
 public:
-	// Implementación obligatoria del Factory Method
+	// Implementacion obligatoria del Factory Method
 	virtual ABloque* CrearBloque() override;
 };

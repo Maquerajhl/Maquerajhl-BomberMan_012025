@@ -9,6 +9,7 @@
 #include "BloqueLadrillo.h"
 #include "BloqueMadera.h"
 #include "FabricaBloques.h"
+#include "CieloNoche.h"
 
 //factoryMethod
 
@@ -40,6 +41,8 @@ ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 void ABomberMan_012025GameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SpawnCieloNoche();
 	//AFabricaBloques* FabricaBloques = GetWorld()->SpawnActor<AFabricaBloques>(AFabricaBloques::StaticClass());
 
 
@@ -56,42 +59,36 @@ void ABomberMan_012025GameMode::BeginPlay()
 		//sosp
 
 		FActorSpawnParameters SpawnParams;
-		// Esto ayuda a asegurar que los actores se creen incluso si hay solapamientos iniciales.
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-		// --- Instanciando los Factories Concretos Directamente en C++ ---
-		// Creamos una instancia de ABloqueAceroFactory
 		AceroFactoryInstance = World->SpawnActor<ABloqueFactory>(ABloqueAceroFactory::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 		if (AceroFactoryInstance)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("GameMode: ¡BloqueAceroFactory instanciado con éxito!"));
+			UE_LOG(LogTemp, Warning, TEXT("GameMode:  BloqueAceroFactory instanciado con  xito!"));
 		}
 		else
 		{
-			UE_LOG(LogTemp, Error, TEXT("GameMode: ¡Fallo al instanciar BloqueAceroFactory!"));
+			UE_LOG(LogTemp, Error, TEXT("GameMode:  Fallo al instanciar BloqueAceroFactory!"));
 		}
 
-		// Creamos una instancia de ABloqueLadrilloFactory
+		// instancia de ABloqueLadrilloFactory
 		LadrilloFactoryInstance = World->SpawnActor<ABloqueFactory>(ABloqueLadrilloFactory::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 		if (LadrilloFactoryInstance)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("GameMode: ¡BloqueLadrilloFactory instanciado con éxito!"));
+			UE_LOG(LogTemp, Warning, TEXT("GameMode:  BloqueLadrilloFactory instanciado con  xito!"));
 		}
 		else
 		{
-			UE_LOG(LogTemp, Error, TEXT("GameMode: ¡Fallo al instanciar BloqueLadrilloFactory!"));
+			UE_LOG(LogTemp, Error, TEXT("GameMode:  Fallo al instanciar BloqueLadrilloFactory!"));
 		}
 
-		// --- Usando los Factories para crear los Bloques ---
-		// Creamos un bloque de Acero
 		if (AceroFactoryInstance)
 		{
 			ABloque* MiBloqueDeAcero = AceroFactoryInstance->CrearBloque();
 			if (MiBloqueDeAcero)
 			{
-				// Asignamos una posición visible para el bloque de Acero
 				MiBloqueDeAcero->SetActorLocation(FVector(0.f, 0.f, 150.f));
-				UE_LOG(LogTemp, Warning, TEXT("GameMode: ¡Bloque de Acero creado usando Factory Method y visible!"));
+				UE_LOG(LogTemp, Warning, TEXT("GameMode:  Bloque de Acero creado usando Factory Method y visible!"));
 			}
 			else
 			{
@@ -99,15 +96,13 @@ void ABomberMan_012025GameMode::BeginPlay()
 			}
 		}
 
-		// Creamos un bloque de Ladrillo
 		if (LadrilloFactoryInstance)
 		{
 			ABloque* MiBloqueDeLadrillo = LadrilloFactoryInstance->CrearBloque();
 			if (MiBloqueDeLadrillo)
 			{
-				// Asignamos una posición visible para el bloque de Ladrillo
 				MiBloqueDeLadrillo->SetActorLocation(FVector(200.f, 0.f, 150.f));
-				UE_LOG(LogTemp, Warning, TEXT("GameMode: ¡Bloque de Ladrillo creado usando Factory Method y visible!"));
+				UE_LOG(LogTemp, Warning, TEXT("GameMode:  Bloque de Ladrillo creado usando Factory Method y visible!"));
 			}
 			else
 			{
@@ -116,7 +111,7 @@ void ABomberMan_012025GameMode::BeginPlay()
 		}
 
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green,
-			TEXT("GameMode: ¡Bloques creados usando Factory Method!"));
+			TEXT("GameMode:  Bloques creados usando Factory Method!"));
 	}
 
 
@@ -141,8 +136,8 @@ void ABomberMan_012025GameMode::BeginPlay()
 	ConstructorDelJuego = Mundo->SpawnActor<AConstructorLaberintoConcreto>(AConstructorLaberintoConcreto::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn);
 	if (!ConstructorDelJuego)
 	{
-		UE_LOG(LogTemp, Error, TEXT("GameMode: Falló el spawn de AConstructorLaberintoConcreto."));
-		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - Falló el spawn del Constructor."));
+		UE_LOG(LogTemp, Error, TEXT("GameMode: fail el spawn de AConstructorLaberintoConcreto."));
+		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - Fallo el spawn del Constructor."));
 		return;
 	}
 	FString MensajeConstructor = TEXT("GameMode: ConstructorLaberintoConcreto instanciado.");
@@ -153,8 +148,8 @@ void ABomberMan_012025GameMode::BeginPlay()
 	DirectorDelJuego = Mundo->SpawnActor<ADirectorLaberinto>(ADirectorLaberinto::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn);
 	if (!DirectorDelJuego)
 	{
-		UE_LOG(LogTemp, Error, TEXT("GameMode: Falló el spawn de ADirectorLaberinto."));
-		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - Falló el spawn del Director."));
+		UE_LOG(LogTemp, Error, TEXT("GameMode: Fallo el spawn de ADirectorLaberinto."));
+		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - fallo el spawn del Director."));
 		/*	if (ConstructorDelJuego && !ConstructorDelJuego->IsPendingKill())
 		{
 			ConstructorDelJuego->Destroy();
@@ -168,7 +163,6 @@ void ABomberMan_012025GameMode::BeginPlay()
 	// 3. Asignar el Builder al Director
 	DirectorDelJuego->ConstructorActualBuilder = ConstructorDelJuego;
 	FString MensajeAsignacion = TEXT("GameMode: Constructor asignado al Director.");
-	UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeAsignacion);
 	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, MensajeAsignacion);
 
 	// 4. El cliente (GameMode) pide al Director que construya el laberinto
@@ -183,7 +177,6 @@ void ABomberMan_012025GameMode::BeginPlay()
 	if (LaberintoActual)
 	{
 		FString MensajeLaberintoFinal = FString::Printf(TEXT("GameMode: Laberinto Finalizado y Referencia Obtenida. Total de bloques: %d"), LaberintoActual->ObtenerBloques().Num());
-		UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeLaberintoFinal);
 		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Blue, MensajeLaberintoFinal);
 	}
 
@@ -213,15 +206,15 @@ void ABomberMan_012025GameMode::BeginPlay()
 		for (int32 columna = 0; columna < aMapaBloques[fila].Num(); ++columna)
 		{
 			int32 valor = aMapaBloques[fila][columna];
-			if (valor != 0) // Si no es espacio vacío
+			if (valor != 0) // Si no es espacio vac o
 			{
-				// Calculamos la posición del bloque
+				// Calculamos la posici n del bloque
 				FVector posicionBloque = FVector(
 					XInicial + columna * AnchoBloque,
 					YInicial + fila * LargoBloque,
 					20.0f); // Z queda en 0 (altura del bloque)
 
-				// Llamamos a la función para generar un bloque
+				// Llamamos a la funci n para generar un bloque
 				//SpawnBloque(posicionBloque, valor);
 				switch (valor)
 				{
@@ -250,8 +243,30 @@ void ABomberMan_012025GameMode::BeginPlay()
 	*/
 	//GetWorld()->GetTimerManager().SetTimer(tHDestruirBloques, this, &ABomberMan_012025GameMode::DestruirBloque, 2.0f, true);
 }
+void ABomberMan_012025GameMode::SpawnCieloNoche()
+{
+	UWorld* const World = GetWorld();
+	if (World)
+	{
+		// CieloNoche
+		CieloNoche = World->SpawnActor<ACieloNoche>(ACieloNoche::StaticClass(), FVector(0.0f, 0.0f, 0.0f), FRotator(0.0f, 0.0f, 0.0f));
+		if (CieloNoche)
+		{
+			CieloNoche->SetActorLocation(FVector(0.0f, 0.0f, 10000.0f)); // Ajusta la altura seg n sea necesario
+			UE_LOG(LogTemp, Warning, TEXT("CieloNoche instanciado con  xito."));
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Fallo al instanciar CieloNoche."));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("No se pudo obtener el mundo para instanciar CieloNoche."));
+	}
+}
 /*
-// Función para generar un bloque
+// Funci n para generar un bloque
 void ABomberMan_012025GameMode::SpawnBloque(FVector posicionBloque, int32 tipoBloque)
 {
 	//ABloque* BloqueGenerado = nullptr;
@@ -302,7 +317,7 @@ void ABomberMan_012025GameMode::DestruirBloque()
 
 	if (aBloques.Num() > 0)
 	{
-		BloqueActual = aBloques[NumeroAleatorio]; // Obtén el primer bloque
+		BloqueActual = aBloques[NumeroAleatorio]; // Obt n el primer bloque
 		if (BloqueActual)
 		{
 			BloqueActual->Destroy();
@@ -326,7 +341,7 @@ void AMyActor::TestMap()
 	// Acceder a un valor
 	if (int32* Score = ExampleMap.Find("Jugador2"))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Puntuación de Jugador2: %d"), *Score);
+		UE_LOG(LogTemp, Warning, TEXT("Puntuaci n de Jugador2: %d"), *Score);
 	}
 
 	// Eliminar un elemento

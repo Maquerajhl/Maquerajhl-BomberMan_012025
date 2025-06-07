@@ -12,6 +12,5 @@ class BOMBERMAN_012025_API ABloqueAcero : public ABloque
 public:
 	ABloqueAcero();
 
-	// ¡Implementación obligatoria del método virtual puro!
 	virtual void InicializarMallaBloque() override;
 };

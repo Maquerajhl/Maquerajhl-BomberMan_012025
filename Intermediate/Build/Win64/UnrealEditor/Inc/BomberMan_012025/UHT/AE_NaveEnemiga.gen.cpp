@@ -24,13 +24,7 @@ struct Z_Construct_UFunction_AAE_NaveEnemiga_CambiarDireccionAleatoria_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Nave|Movimiento|PatrullaAutonoma" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// --- Nueva funci\xef\xbf\xbdn para la l\xef\xbf\xbdgica de cambio de direcci\xef\xbf\xbdn ---\n" },
-#endif
 		{ "ModuleRelativePath", "AE_NaveEnemiga.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "--- Nueva funci\xef\xbf\xbdn para la l\xef\xbf\xbdgica de cambio de direcci\xef\xbf\xbdn ---" },
-#endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
@@ -64,13 +58,7 @@ struct Z_Construct_UFunction_AAE_NaveEnemiga_Mover_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Nave" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Contador interno para el pr\xef\xbf\xbdximo cambio de direcci\xef\xbf\xbdn.\n// -------------------------------------------------------------\n" },
-#endif
 		{ "ModuleRelativePath", "AE_NaveEnemiga.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Contador interno para el pr\xef\xbf\xbdximo cambio de direcci\xef\xbf\xbdn." },
-#endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_DeltaTime;
@@ -136,33 +124,15 @@ struct Z_Construct_UClass_AAE_NaveEnemiga_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DireccionActualPatrulla_MetaData[] = {
 		{ "Category", "Nave|Movimiento|PatrullaAutonoma" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// --- Nuevas propiedades para el patrullaje aut\xef\xbf\xbdnomo ---\n" },
-#endif
 		{ "ModuleRelativePath", "AE_NaveEnemiga.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "--- Nuevas propiedades para el patrullaje aut\xef\xbf\xbdnomo ---" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TiempoCambioDireccionMin_MetaData[] = {
 		{ "Category", "Nave|Movimiento|PatrullaAutonoma" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// La direcci\xef\xbf\xbdn en la que la nave se est\xef\xbf\xbd moviendo.\n" },
-#endif
 		{ "ModuleRelativePath", "AE_NaveEnemiga.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "La direcci\xef\xbf\xbdn en la que la nave se est\xef\xbf\xbd moviendo." },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TiempoCambioDireccionMax_MetaData[] = {
 		{ "Category", "Nave|Movimiento|PatrullaAutonoma" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Tiempo m\xef\xbf\xbdnimo antes de cambiar de direcci\xef\xbf\xbdn.\n" },
-#endif
 		{ "ModuleRelativePath", "AE_NaveEnemiga.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Tiempo m\xef\xbf\xbdnimo antes de cambiar de direcci\xef\xbf\xbdn." },
-#endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_NaveMesh;
@@ -173,8 +143,8 @@ struct Z_Construct_UClass_AAE_NaveEnemiga_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AAE_NaveEnemiga_CambiarDireccionAleatoria, "CambiarDireccionAleatoria" }, // 2951266260
-		{ &Z_Construct_UFunction_AAE_NaveEnemiga_Mover, "Mover" }, // 749662231
+		{ &Z_Construct_UFunction_AAE_NaveEnemiga_CambiarDireccionAleatoria, "CambiarDireccionAleatoria" }, // 4153920311
+		{ &Z_Construct_UFunction_AAE_NaveEnemiga_Mover, "Mover" }, // 1749168468
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -235,10 +205,10 @@ AAE_NaveEnemiga::~AAE_NaveEnemiga() {}
 struct Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_AE_NaveEnemiga_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AAE_NaveEnemiga, AAE_NaveEnemiga::StaticClass, TEXT("AAE_NaveEnemiga"), &Z_Registration_Info_UClass_AAE_NaveEnemiga, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAE_NaveEnemiga), 1586662780U) },
+		{ Z_Construct_UClass_AAE_NaveEnemiga, AAE_NaveEnemiga::StaticClass, TEXT("AAE_NaveEnemiga"), &Z_Registration_Info_UClass_AAE_NaveEnemiga, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAE_NaveEnemiga), 1406505025U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_AE_NaveEnemiga_h_1571243537(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_AE_NaveEnemiga_h_44171353(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_AE_NaveEnemiga_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_AE_NaveEnemiga_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -37,9 +37,6 @@ struct Z_Construct_UEnum_BomberMan_012025_ECodigoBloque_Statics
 		{ "BlueprintType", "true" },
 		{ "BURBUJA.DisplayName", "BloqueBurbuja" },
 		{ "BURBUJA.Name", "ECodigoBloque::BURBUJA" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Enum para mapear los c\xef\xbf\xbd""digos de plantilla a los tipos de bloques\n" },
-#endif
 		{ "CONCRETO.DisplayName", "BloqueConcreto" },
 		{ "CONCRETO.Name", "ECodigoBloque::CONCRETO" },
 		{ "GENERICO.DisplayName", "Bloque" },
@@ -51,9 +48,6 @@ struct Z_Construct_UEnum_BomberMan_012025_ECodigoBloque_Statics
 		{ "ModuleRelativePath", "ConstructorLaberintoBuilder.h" },
 		{ "NINGUNO.DisplayName", "Sin Bloque" },
 		{ "NINGUNO.Name", "ECodigoBloque::NINGUNO" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Enum para mapear los c\xef\xbf\xbd""digos de plantilla a los tipos de bloques" },
-#endif
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
@@ -93,10 +87,10 @@ UEnum* Z_Construct_UEnum_BomberMan_012025_ECodigoBloque()
 struct Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_ConstructorLaberintoBuilder_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ ECodigoBloque_StaticEnum, TEXT("ECodigoBloque"), &Z_Registration_Info_UEnum_ECodigoBloque, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3533976027U) },
+		{ ECodigoBloque_StaticEnum, TEXT("ECodigoBloque"), &Z_Registration_Info_UEnum_ECodigoBloque, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 251386798U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_ConstructorLaberintoBuilder_h_1222669898(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_ConstructorLaberintoBuilder_h_115298539(TEXT("/Script/BomberMan_012025"),
 	nullptr, 0,
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_ConstructorLaberintoBuilder_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_ConstructorLaberintoBuilder_h_Statics::EnumInfo));

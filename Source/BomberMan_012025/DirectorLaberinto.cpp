@@ -1,11 +1,11 @@
 // BomberMan_012025/Source/BomberMan_012025/DirectorLaberinto.cpp
-#include "DirectorLaberinto.h" // ¡Cambio de include!
-#include "ConstructorLaberintoConcreto.h" // ¡Cambio de include!
+#include "DirectorLaberinto.h"
+#include "ConstructorLaberintoConcreto.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/Engine.h"
-#include "GameFramework/Actor.h" // ¡Importante para IsPendingKill() de AActor si no está ya indirectamente!
-#include "UObject/NoExportTypes.h" // Para FColor y FLinearColor
+#include "GameFramework/Actor.h"
+#include "UObject/NoExportTypes.h"
 
 ADirectorLaberinto::ADirectorLaberinto()
 {
@@ -24,8 +24,7 @@ void ADirectorLaberinto::BeginPlay()
         ConstructorActualBuilder = GetWorld()->SpawnActor<AConstructorLaberintoConcreto>(FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn);
         if (!ConstructorActualBuilder)
         {
-            UE_LOG(LogTemp, Error, TEXT("ADirectorLaberinto::BeginPlay - Falló el spawn de AConstructorLaberintoConcreto."));
-            if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: DirectorLaberinto - Falló el spawn del Constructor."));
+            if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: DirectorLaberinto - Fallo el spawn del Constructor."));
         }
     }
 }
@@ -40,16 +39,13 @@ UMaestroLaberintoProducto* ADirectorLaberinto::ConstruirLaberintoPorCapas(
 {
     if (!ConstructorActualBuilder)
     {
-        UE_LOG(LogTemp, Error, TEXT("ADirectorLaberinto::ConstruirLaberintoPorCapas - ConstructorActualBuilder es nulo. No se puede construir el laberinto."));
         if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: DirectorLaberinto - Builder nulo para construir laberinto."));
         return nullptr;
     }
 
-    FString MensajeInicio = TEXT("--- Director: Iniciando construcción de Laberinto Capa por Capa ---");
-    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeInicio);
+    FString MensajeInicio = TEXT("--- Director: Iniciando construccion de Laberinto Capa por Capa ---");
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::White, MensajeInicio);
 
-    // Paso 1: Eliminar todos los objetos existentes en el mapa (excluyendo Director y Builder)
     LimpiarActoresDelMundo(ADirectorLaberinto::StaticClass());
     LimpiarActoresDelMundo(AConstructorLaberintoConcreto::StaticClass());
 
@@ -66,31 +62,26 @@ UMaestroLaberintoProducto* ADirectorLaberinto::ConstruirLaberintoPorCapas(
         };
 
     FString MensajePiso = TEXT("Director: Construyendo el PISO del laberinto (Nivel Z = 0)");
-    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajePiso);
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Silver, MensajePiso);
     ConstructorActualBuilder->ConstruirCapa(ConvertirPlantilla(PlantillaPiso), 0, TamanoCelda);
 
     FString MensajeBordesInferiores = TEXT("Director: Construyendo CONTORNOS INFERIORES y MUROS INFERIORES (Nivel Z = 1)");
-    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeBordesInferiores);
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Silver, MensajeBordesInferiores);
     ConstructorActualBuilder->ConstruirCapa(ConvertirPlantilla(PlantillaBordeInferior), 1, TamanoCelda);
     ConstructorActualBuilder->ConstruirCapa(ConvertirPlantilla(PlantillaMurosInferiores), 1, TamanoCelda);
 
     FString MensajeBordesSuperiores = TEXT("Director: Construyendo CONTORNOS SUPERIORES y MUROS SUPERIORES (Nivel Z = 2)");
-    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeBordesSuperiores);
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Silver, MensajeBordesSuperiores);
     ConstructorActualBuilder->ConstruirCapa(ConvertirPlantilla(PlantillaBordeSuperior), 2, TamanoCelda);
     ConstructorActualBuilder->ConstruirCapa(ConvertirPlantilla(PlantillaMurosSuperiores), 2, TamanoCelda);
 
     UMaestroLaberintoProducto* LaberintoCompletado = ConstructorActualBuilder->ObtenerResultado();
     FString MensajeFin = TEXT("--- Director: Laberinto Capa por Capa Construido ---");
-    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeFin);
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::White, MensajeFin);
 
     if (LaberintoCompletado)
     {
         FString MensajeSpawn = TEXT("Director: Spawneando bloques del laberinto en el mundo de juego.");
-        UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeSpawn);
         if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Turquoise, MensajeSpawn);
 
         UWorld* Mundo = GetWorld();
@@ -102,8 +93,7 @@ UMaestroLaberintoProducto* ADirectorLaberinto::ConstruirLaberintoPorCapas(
                 {
                     FString MensajeBloque = FString::Printf(TEXT("Director: Bloque <%s> posicionado en (%.1f,%.1f,%.1f)"),
                         *Bloque->GetClass()->GetName(), Bloque->GetActorLocation().X, Bloque->GetActorLocation().Y, Bloque->GetActorLocation().Z);
-                    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeBloque);
-                    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Cyan, MensajeBloque); // Cambiado a Cyan
+                    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Cyan, MensajeBloque);
                 }
             }
         }
@@ -117,7 +107,6 @@ void ADirectorLaberinto::LimpiarActoresDelMundo(TSubclassOf<AActor> ClaseActorAE
     UWorld* Mundo = GetWorld();
     if (!Mundo)
     {
-        UE_LOG(LogTemp, Error, TEXT("ADirectorLaberinto::LimpiarActoresDelMundo - No se pudo obtener el Mundo."));
         if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: Director - No se pudo obtener el Mundo para limpiar."));
         return;
     }
@@ -135,26 +124,19 @@ void ADirectorLaberinto::LimpiarActoresDelMundo(TSubclassOf<AActor> ClaseActorAE
             bEsActorEsencial = true;
         }
 
-        // ¡Este es el ajuste clave! Para usar IsPendingKill() en un AActor*, necesitas que la definición de AActor sea completa.
-        // GameFramework/Actor.h ya debería haberlo proporcionado.
-        // Si sigue dando error, asegúrate de que tus propias clases (ABloque, ABloqueFactory, etc.)
-        // hereden DIRECTAMENTE o INDIRECTAMENTE de AActor para que IsPendingKill() sea válido para ellas.
-        // Si no son AActor, no tendrán IsPendingKill().
+        // Codigo comentado:
         /*if (Actor && !Actor->IsPendingKill() && !bEsActorEsencial)
         {
             Actor->Destroy();
             ActoresDestruidos++;
         }*/
     }
-    FString Mensaje = FString::Printf(TEXT("Director: ¡%d actores han sido 'eliminados' del mapa! (Excluyendo clase: %s)"), ActoresDestruidos, ClaseActorAExcluir ? *ClaseActorAExcluir->GetName() : TEXT("Ninguna"));
-    UE_LOG(LogTemp, Log, TEXT("%s"), *Mensaje);
+    FString Mensaje = FString::Printf(TEXT("Director: %d actores han sido 'eliminados' del mapa! (Excluyendo clase: %s)"), ActoresDestruidos, ClaseActorAExcluir ? *ClaseActorAExcluir->GetName() : TEXT("Ninguna"));
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, Mensaje);
 }
 
-
 void ADirectorLaberinto::InicializarPlantillas()
 {
-    // ... (El código de InicializarPlantillas que ya corregimos con FilaPlantilla, se mantiene igual) ...
     DatosPlantillaPiso.Empty();
     DatosPlantillaBordeInferior.Empty();
     DatosPlantillaBordeSuperior.Empty();

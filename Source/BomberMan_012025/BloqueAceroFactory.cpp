@@ -7,7 +7,6 @@ ABloque* ABloqueAceroFactory::CrearBloque()
 	if (World)
 	{
 		FActorSpawnParameters SpawnParams;
-		// Puedes ajustar la ubicación y rotación aquí, o dejar que el cliente las asigne después.
 		ABloqueAcero* NuevoBloqueAcero = World->SpawnActor<ABloqueAcero>(ABloqueAcero::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 		if (NuevoBloqueAcero)
 		{

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AE_NaveEnemiga.h"
+#include "CieloNoche.h"
 #include "GameFramework/GameModeBase.h"
 #include "BomberMan_012025GameMode.generated.h"
 //para el factoryMethod
@@ -27,17 +28,16 @@ public:
 	virtual void BeginPlay() override;
 
 public:
-	// Declarar la posición del siguiente bloque
+
 	FVector posicionSiguienteBloque = FVector(1000.0f, 500.0f, 20.0f);
 
-	// Declarar un mapa de bloques como un array bidimensional
+
 	
 	float XInicial = 500.00f;
 	float YInicial = 500.00f;
 	float AnchoBloque = 100.0f;
 	float LargoBloque = 100.0f;
 	ABloque* BloqueActual = nullptr;
-	// Declarar un array de punteros a objetos de tipo BloqueMadera
 	TArray<ABloque*> aBloques;
 	
 	FTimerHandle tHDestruirBloques;
@@ -58,6 +58,9 @@ private:
 	UPROPERTY()
 	AAE_NaveEnemiga* pepe;
 
+	UPROPERTY()
+	ACieloNoche* CieloNoche;
+
 
 
 	//final factoryMethod
@@ -75,6 +78,10 @@ private:
 	UMaestroLaberintoProducto* LaberintoActual; // Para mantener una referencia al laberinto construido
 
 	//finala builder
+
+public:
+
+	void SpawnCieloNoche();
 };
 
 /*
@@ -90,7 +97,7 @@ for (AActor* bloque : aBloques)
 /*
 if (aBloques.Num() > 0)
 {
-	AActor* primerBloque = aBloques[0]; // Obtén el primer bloque
+	AActor* primerBloque = aBloques[0]; // Obtï¿½n el primer bloque
 	if (primerBloque)
 	{
 		// Realiza operaciones con el bloque

@@ -1,14 +1,11 @@
-// BomberMan_012025/Source/BomberMan_012025/DirectorLaberinto.h
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "ConstructorLaberintoBuilder.h" // Incluimos nuestra interfaz de Builder
-#include "MaestroLaberintoProducto.h"     // Incluimos UMaestroLaberintoProducto
+#include "ConstructorLaberintoBuilder.h"
+#include "MaestroLaberintoProducto.h"
 #include "DirectorLaberinto.generated.h"
 
-// Define un struct para representar una fila de la plantilla.
-// Esto permite que TArray<FilaPlantilla> sea un UPROPERTY.
 USTRUCT(BlueprintType)
 struct FilaPlantilla
 {
@@ -18,7 +15,6 @@ struct FilaPlantilla
     TArray<int32> FilaDatos;
 };
 
-// Forward declaration de tu constructor concreto
 class AConstructorLaberintoConcreto;
 
 UCLASS()
@@ -33,22 +29,18 @@ protected:
     virtual void BeginPlay() override;
 
 public:
-    // Propiedad para asignar el Constructor en el editor o en el constructor
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Construccion Laberinto")
-    AConstructorLaberintoConcreto* ConstructorActualBuilder; // Referencia a la instancia de tu constructor
+    AConstructorLaberintoConcreto* ConstructorActualBuilder;
 
-    // Método principal para construir el laberinto con las plantillas
     UFUNCTION(BlueprintCallable, Category = "Construccion Laberinto")
     UMaestroLaberintoProducto* ConstruirLaberintoPorCapas(
-        const TArray<FilaPlantilla>& PlantillaPiso, // ¡Cambio aquí!
-        const TArray<FilaPlantilla>& PlantillaBordeInferior, // ¡Cambio aquí!
-        const TArray<FilaPlantilla>& PlantillaBordeSuperior, // ¡Cambio aquí!
-        const TArray<FilaPlantilla>& PlantillaMurosInferiores, // ¡Cambio aquí!
-        const TArray<FilaPlantilla>& PlantillaMurosSuperiores, // ¡Cambio aquí!
-        float TamanoCelda = 100.0f); // Tamaño por defecto de la celda
+        const TArray<FilaPlantilla>& PlantillaPiso,
+        const TArray<FilaPlantilla>& PlantillaBordeInferior,
+        const TArray<FilaPlantilla>& PlantillaBordeSuperior,
+        const TArray<FilaPlantilla>& PlantillaMurosInferiores,
+        const TArray<FilaPlantilla>& PlantillaMurosSuperiores,
+        float TamanoCelda = 100.0f);
 
-    // Aquí puedes definir tus plantillas de ejemplo para demostración (ahora públicas para acceso desde GameMode)
-    // ¡Cambio aquí! Ahora son TArray<FilaPlantilla>
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Construccion Laberinto|Plantillas")
     TArray<FilaPlantilla> DatosPlantillaPiso;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Construccion Laberinto|Plantillas")
@@ -61,9 +53,6 @@ public:
     TArray<FilaPlantilla> DatosPlantillaMurosSuperiores;
 
 private:
-    // Helper para inicializar las plantillas de ejemplo
     void InicializarPlantillas();
-
-    // Función para limpiar actores del mundo
     void LimpiarActoresDelMundo(TSubclassOf<AActor> ClaseActorAExcluir = nullptr);
 };

@@ -7,7 +7,6 @@ ABloque* ABloqueBurbujaFactory::CrearBloque()
 	if (World)
 	{
 		FActorSpawnParameters SpawnParams;
-		// Puedes ajustar la ubicación y rotación aquí, o dejar que el cliente las asigne después.
 		ABloqueBurbuja* NuevoBloqueBurbuja = World->SpawnActor<ABloqueBurbuja>(ABloqueBurbuja::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 		if (NuevoBloqueBurbuja)
 		{

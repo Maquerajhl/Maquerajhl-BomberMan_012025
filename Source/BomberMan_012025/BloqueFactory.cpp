@@ -1,6 +1,5 @@
-// BloqueFactory.cpp
 #include "BloqueFactory.h"
-#include "Bloque.h" // Se incluye para el tipo de retorno
+#include "Bloque.h" 
 
 ABloqueFactory::ABloqueFactory()
 {
