@@ -95,6 +95,7 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 	void Tick(float DeltaTime) override;
+	void BeginPlay() override;
 private:
 	FVector MovementInput;
 	FVector CameraInput;

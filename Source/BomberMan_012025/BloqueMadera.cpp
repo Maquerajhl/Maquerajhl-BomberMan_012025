@@ -15,6 +15,11 @@ ABloqueMadera::ABloqueMadera()
 		MallaBloque->SetStaticMesh(MallaAceroAsset.Object);
 		// Opcional: MallaBloque->SetRelativeScale3D(FVector(1.0f)); 
 	}
+	static ConstructorHelpers::FObjectFinder<UMaterial> MaterialTransparente(TEXT("Material'/Game/StarterContent/Materials/M_Glass.M_Glass'")); // Un material de cristal del Starter Content
+	if (MaterialTransparente.Succeeded())
+	{
+		MallaBloque->SetMaterial(0, MaterialTransparente.Object);
+	}
 }
 
 void ABloqueMadera::InicializarMallaBloque()

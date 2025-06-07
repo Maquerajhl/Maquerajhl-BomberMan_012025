@@ -6,7 +6,12 @@ ABloque::ABloque()
 {
 	PrimaryActorTick.bCanEverTick = false; 
 
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MallaBaseAsset(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
+
 	MallaBloque = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MallaBloque"));
+	MallaBloque->SetStaticMesh(MallaBaseAsset.Object);
+
 	RootComponent = MallaBloque;
 }
 

@@ -12,6 +12,13 @@ ABloqueAcero::ABloqueAcero()
 		MallaBloque->SetStaticMesh(MallaAceroAsset.Object);
 		//MallaBloque->SetRelativeScale3D(FVector(1.0f)); 
 	}
+
+	// 1. Cargar un material simple con textura de color base
+	static ConstructorHelpers::FObjectFinder<UMaterial> MaterialTexturaSimple(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Metal_Gold.M_Metal_Gold'")); // Reemplaza con tu propio material
+	if (MaterialTexturaSimple.Succeeded())
+	{
+		MallaBloque->SetMaterial(0, MaterialTexturaSimple.Object);
+	}
 }
 
 void ABloqueAcero::InicializarMallaBloque()

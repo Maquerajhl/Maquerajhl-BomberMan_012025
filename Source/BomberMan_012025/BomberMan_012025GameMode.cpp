@@ -42,6 +42,8 @@ void ABomberMan_012025GameMode::BeginPlay()
 	Super::BeginPlay();
 	//AFabricaBloques* FabricaBloques = GetWorld()->SpawnActor<AFabricaBloques>(AFabricaBloques::StaticClass());
 
+
+
 	
 	//prueba de factorymethod
 

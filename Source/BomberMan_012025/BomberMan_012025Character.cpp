@@ -206,6 +206,13 @@ void ABomberMan_012025Character::Tick(float DeltaTime)
 
 }
 
+void ABomberMan_012025Character::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	this->SetActorLocation(GetActorLocation() +FVector(0, 0, 100));
+}
+
 void ABomberMan_012025Character::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D

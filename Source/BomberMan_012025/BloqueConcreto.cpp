@@ -15,6 +15,12 @@ ABloqueConcreto::ABloqueConcreto()
 		MallaBloque->SetStaticMesh(MallaAceroAsset.Object);
 		// Opcional: MallaBloque->SetRelativeScale3D(FVector(1.0f)); 
 	}
+
+	static ConstructorHelpers::FObjectFinder<UMaterial> MaterialEmisivo(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Water_Lake.M_Water_Lake'")); // Reemplaza con tu material emisivo
+	if (MaterialEmisivo.Succeeded())
+	{
+		MallaBloque->SetMaterial(0, MaterialEmisivo.Object);
+	}
 }
 
 void ABloqueConcreto::InicializarMallaBloque()
