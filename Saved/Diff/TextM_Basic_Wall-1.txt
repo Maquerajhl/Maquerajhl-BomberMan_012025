@@ -1,0 +1,43 @@
+Begin Object Class=/Script/Engine.Material Name="M_Basic_Wall"
+   Begin Object Class=/Script/Engine.MaterialEditorOnlyData Name="M_Basic_WallEditorOnlyData"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_7"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionVectorParameter Name="MaterialExpressionVectorParameter_1"
+   End Object
+   Begin Object Class=/Script/UnrealEd.SceneThumbnailInfoWithPrimitive Name="SceneThumbnailInfoWithPrimitive_2"
+   End Object
+   Begin Object Name="M_Basic_WallEditorOnlyData"
+      BaseColor=(Constant=(B=0,G=0,R=0,A=0),Expression="/Script/Engine.MaterialExpressionVectorParameter'M_Basic_Wall:MaterialExpressionVectorParameter_1'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      Roughness=(Constant=0.000000,Expression="/Script/Engine.MaterialExpressionScalarParameter'M_Basic_Wall:MaterialExpressionScalarParameter_7'")
+      ExpressionCollection=(Expressions=("/Script/Engine.MaterialExpressionVectorParameter'M_Basic_Wall:MaterialExpressionVectorParameter_1'","/Script/Engine.MaterialExpressionScalarParameter'M_Basic_Wall:MaterialExpressionScalarParameter_7'"))
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_7"
+      DefaultValue=0.640708
+      ParameterName="Roughness"
+      ExpressionGUID=B8185F0B49B31628185982B46F8CCA7E
+      Group="Wall"
+      MaterialExpressionEditorX=-440
+      MaterialExpressionEditorY=220
+      MaterialExpressionGuid=1D627D35401EF87E076D578646691D58
+      Material="/Script/Engine.Material'M_Basic_Wall'"
+   End Object
+   Begin Object Name="MaterialExpressionVectorParameter_1"
+      DefaultValue=(R=0.810345,G=0.787878,B=0.654683,A=1.000000)
+      ParameterName="Color"
+      ExpressionGUID=EB4FF50449F032812F4577A0A345967E
+      Group="Wall"
+      MaterialExpressionEditorX=-480
+      MaterialExpressionEditorY=-100
+      MaterialExpressionGuid=ACEE5425493D88CA22988AB6020AACB6
+      Material="/Script/Engine.Material'M_Basic_Wall'"
+   End Object
+   Begin Object Name="SceneThumbnailInfoWithPrimitive_2"
+   End Object
+   bUsedWithStaticLighting=True
+   PixelDepthOffsetMode=PDOM_Legacy
+   StateId=982AACB5AC9C10472EB3FC9A5E7D22FC
+   EditorOnlyData="/Script/Engine.MaterialEditorOnlyData'M_Basic_WallEditorOnlyData'"
+   ThumbnailInfo="/Script/UnrealEd.SceneThumbnailInfoWithPrimitive'SceneThumbnailInfoWithPrimitive_2'"
+   LightingGuid=C964F9D946F9ED5D1EE203B61A4A375B
+End Object

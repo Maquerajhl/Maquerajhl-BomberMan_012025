@@ -1,0 +1,53 @@
+Begin Object Class=/Script/Engine.Material Name="M_Basic_Floor"
+   Begin Object Class=/Script/Engine.MaterialEditorOnlyData Name="M_Basic_FloorEditorOnlyData"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionConstant Name="MaterialExpressionConstant_2"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionScalarParameter Name="MaterialExpressionScalarParameter_7"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionVectorParameter Name="MaterialExpressionVectorParameter_1"
+   End Object
+   Begin Object Class=/Script/UnrealEd.SceneThumbnailInfoWithPrimitive Name="SceneThumbnailInfoWithPrimitive_2"
+   End Object
+   Begin Object Name="M_Basic_FloorEditorOnlyData"
+      BaseColor=(Constant=(B=0,G=0,R=0,A=0),Expression="/Script/Engine.MaterialExpressionVectorParameter'M_Basic_Floor:MaterialExpressionVectorParameter_1'",Mask=1,MaskR=1,MaskG=1,MaskB=1)
+      Metallic=(Expression="/Script/Engine.MaterialExpressionConstant'M_Basic_Floor:MaterialExpressionConstant_2'")
+      Roughness=(Constant=0.000000,Expression="/Script/Engine.MaterialExpressionScalarParameter'M_Basic_Floor:MaterialExpressionScalarParameter_7'")
+      ExpressionCollection=(Expressions=("/Script/Engine.MaterialExpressionVectorParameter'M_Basic_Floor:MaterialExpressionVectorParameter_1'","/Script/Engine.MaterialExpressionConstant'M_Basic_Floor:MaterialExpressionConstant_2'","/Script/Engine.MaterialExpressionScalarParameter'M_Basic_Floor:MaterialExpressionScalarParameter_7'"))
+   End Object
+   Begin Object Name="MaterialExpressionConstant_2"
+      R=0.500000
+      MaterialExpressionEditorX=-540
+      MaterialExpressionEditorY=60
+      MaterialExpressionGuid=D3C250F444B81366548EBB8D946EC202
+      Material="/Script/Engine.Material'M_Basic_Floor'"
+   End Object
+   Begin Object Name="MaterialExpressionScalarParameter_7"
+      DefaultValue=0.500000
+      ParameterName="Roughness"
+      ExpressionGUID=B8185F0B49B31628185982B46F8CCA7E
+      Group="Wall"
+      MaterialExpressionEditorX=-520
+      MaterialExpressionEditorY=320
+      MaterialExpressionGuid=7422B2C24435300EE02012968FDF88A9
+      Material="/Script/Engine.Material'M_Basic_Floor'"
+   End Object
+   Begin Object Name="MaterialExpressionVectorParameter_1"
+      DefaultValue=(R=0.259027,G=0.320382,B=0.383775,A=1.000000)
+      ParameterName="Color"
+      ExpressionGUID=EB4FF50449F032812F4577A0A345967E
+      Group="Wall"
+      MaterialExpressionEditorX=-560
+      MaterialExpressionEditorY=-240
+      MaterialExpressionGuid=3B45AEC44E57DE87CFDF82AB5C6E4943
+      Material="/Script/Engine.Material'M_Basic_Floor'"
+   End Object
+   Begin Object Name="SceneThumbnailInfoWithPrimitive_2"
+   End Object
+   bUsedWithStaticLighting=True
+   PixelDepthOffsetMode=PDOM_Legacy
+   StateId=341903C1A26D3283B2261E855D38B3BC
+   EditorOnlyData="/Script/Engine.MaterialEditorOnlyData'M_Basic_FloorEditorOnlyData'"
+   ThumbnailInfo="/Script/UnrealEd.SceneThumbnailInfoWithPrimitive'SceneThumbnailInfoWithPrimitive_2'"
+   LightingGuid=F3418DC240026CB355292BACC31CEB3B
+End Object
