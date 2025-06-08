@@ -3,9 +3,10 @@
 
 
 #include "CoreMinimal.h"
-#include "AE_NaveEnemiga.h"
+//#include "AE_NaveEnemiga.h"
 #include "CieloNoche.h"
 #include "GameFramework/GameModeBase.h"
+#include "PrototypeRegistry.h"
 #include "BomberMan_012025GameMode.generated.h"
 //para el factoryMethod
 class ABloqueFactory;
@@ -55,8 +56,8 @@ private:
 	UPROPERTY()
 	ABloqueFactory* LadrilloFactoryInstance;
 
-	UPROPERTY()
-	AAE_NaveEnemiga* pepe;
+//	UPROPERTY()
+//	AAE_NaveEnemiga* pepe;
 
 	UPROPERTY()
 	ACieloNoche* CieloNoche;
@@ -82,6 +83,26 @@ private:
 public:
 
 	void SpawnCieloNoche();
+
+	//prototypeRegistry
+
+	UPROPERTY()
+	UPrototypeRegistry* MyPrototypeRegistry;
+
+	// Puedes comentar o eliminar NavePrototypesToRegister si no vas a usar el editor para llenarlo
+	// UPROPERTY(EditAnywhere, Category = "Prototype Setup")
+	// TMap<FString, TSubclassOf<AActor>> NavePrototypesToRegister;
+
+	// --- ¡AÑADE ESTO para asegurar que los Blueprints sean "cocinados"! ---
+	// Incluso si no se usa directamente en C++, Unreal lo verá como una referencia.
+	UPROPERTY()
+	TArray<TSoftClassPtr<AActor>> ReferencedPrototypeClasses; // Usar TSoftClassPtr es mejor para referencias que no se cargan de inmediato
+
+
+private:
+	UFUNCTION()
+	void SpawnExampleNaves();
+
 };
 
 /*

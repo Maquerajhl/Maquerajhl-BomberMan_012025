@@ -10,6 +10,7 @@
 #include "BloqueMadera.h"
 #include "FabricaBloques.h"
 #include "CieloNoche.h"
+#include "Math/UnrealMathUtility.h"
 
 //factoryMethod
 
@@ -17,7 +18,7 @@
 #include "BloqueLadrilloFactory.h"
 #include "Bloque.h"
 
-// AAE_NaveEnemiga
+//AAE_NaveEnemiga
 #include "AE_NaveEnemiga.h"
 
 //builder
@@ -28,6 +29,10 @@
 #include "Engine/World.h"
 #include "Engine/Engine.h"
 
+//prototype
+#include "UObject/UObjectGlobals.h" 
+#include "UObject/SoftObjectPtr.h"
+
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
 	// set default pawn class to our Blueprinted character
@@ -36,11 +41,63 @@ ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+
+	//prototypr
+	MyPrototypeRegistry = CreateDefaultSubobject<UPrototypeRegistry>(TEXT("NavePrototypeRegistry"));
+
+	// Para asegurar que los Blueprints se cocinen (aunque no los carguemos aquí)
+	ReferencedPrototypeClasses.Add(TSoftClassPtr<AActor>(FSoftObjectPath(TEXT("/Game/Blueprints/BP_NaveEnemiga_Lenta.BP_NaveEnemiga_Lenta_C"))));
+	ReferencedPrototypeClasses.Add(TSoftClassPtr<AActor>(FSoftObjectPath(TEXT("/Game/Blueprints/BP_NaveEnemiga_Rapida.BP_NaveEnemiga_Rapida_C"))));
+
 }
 
 void ABomberMan_012025GameMode::BeginPlay()
 {
 	Super::BeginPlay();
+	// prototype prueba 1
+	if (MyPrototypeRegistry)
+	{
+		UE_LOG(LogTemp, Log, TEXT("MyPrototypeRegistry es válido. Procediendo a cargar prototipos."));
+
+		struct FPrototypeEntry { FString Key; FString Path; };
+		TArray<FPrototypeEntry> PrototypesToLoad = {
+			{ TEXT("Lenta"), TEXT("/Game/nave/BP_NaveEnemiga_Lenta.BP_NaveEnemiga_Lenta_C") },
+			{ TEXT("Rapida"), TEXT("/Game/nave/BP_NaveEnemiga_Rapida.BP_NaveEnemiga_Rapida_C") },
+		};
+
+
+		for (const auto& Entry : PrototypesToLoad)
+		{
+			UClass* PrototypeClass = LoadClass<AActor>(nullptr, *Entry.Path);
+			if (PrototypeClass)
+			{
+				// Asegúrate que la clase implementa la interfaz
+				if (PrototypeClass->ImplementsInterface(UIEnemigoPrototype::StaticClass()))
+				{
+					MyPrototypeRegistry->PrototypeClasses.Add(Entry.Key, PrototypeClass);
+					UE_LOG(LogTemp, Log, TEXT("DEBUG: Prototipo '%s' cargado y registrado correctamente desde '%s'."), *Entry.Key, *Entry.Path);
+				}
+				else
+				{
+					UE_LOG(LogTemp, Error, TEXT("DEBUG: ERROR: La clase cargada '%s' para el prototipo '%s' NO implementa la interfaz IIEnemigoPrototype. ¡Verifica el Blueprint!"), *PrototypeClass->GetName(), *Entry.Key);
+				}
+			}
+			else
+			{
+				UE_LOG(LogTemp, Error, TEXT("DEBUG: ERROR: No se pudo cargar el prototipo '%s' desde la ruta: '%s'. ¡Verifica la ruta y si el Blueprint está cocinado!"), *Entry.Key, *Entry.Path);
+			}
+		}
+		for (int i = 0; i <= FMath::RandRange(1, 40); i++) {
+			SpawnExampleNaves();
+		}
+			
+	}
+	else
+	{
+			TEXT("MyPrototypeRegistry is null in the GameMode");
+	}
+	//end
 
 	SpawnCieloNoche();
 	//AFabricaBloques* FabricaBloques = GetWorld()->SpawnActor<AFabricaBloques>(AFabricaBloques::StaticClass());
@@ -55,7 +112,9 @@ void ABomberMan_012025GameMode::BeginPlay()
 	if (World)
 	{
 		// nave
-		pepe = World->SpawnActor<AAE_NaveEnemiga>(AAE_NaveEnemiga::StaticClass(), FVector(0.0f, 0.0f, 100.0f), FRotator(0.0f, 0.0f, 0.0f));
+		//pepe = World->SpawnActor<AAE_NaveEnemiga>(AAE_NaveEnemiga::StaticClass(), FVector(0.0f, 0.0f, 100.0f), FRotator(0.0f, 0.0f, 0.0f));
+	
+		//pepe->SetActorLocation(pepe->GetActorLocation() + FVector(0.0f, 0.0f, 300.0f)); // Ajusta la altura seg n sea necesario
 		//sosp
 
 		FActorSpawnParameters SpawnParams;
@@ -263,6 +322,53 @@ void ABomberMan_012025GameMode::SpawnCieloNoche()
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("No se pudo obtener el mundo para instanciar CieloNoche."));
+	}
+}
+void ABomberMan_012025GameMode::SpawnExampleNaves()
+{
+	UE_LOG(LogTemp, Log, TEXT("SpawnExampleNaves() se está ejecutando."));
+
+	if (MyPrototypeRegistry)
+	{
+		AActor* SpawnedNaveLenta = MyPrototypeRegistry->GetClonedPrototypeById(TEXT("Lenta"), GetWorld(), FVector(0.0f, 0.0f, 400.0f), FRotator::ZeroRotator);
+		if (SpawnedNaveLenta)
+		{
+			AAE_NaveEnemiga* NaveLenta = Cast<AAE_NaveEnemiga>(SpawnedNaveLenta);
+			if (NaveLenta)
+			{
+				UE_LOG(LogTemp, Log, TEXT("Nave Lenta clonada. Velocidad: %f"), NaveLenta->VelocidadMovimiento);
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Nave Lenta spawneda pero no es AAE_NaveEnemiga."));
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("No se pudo spawnear la Nave Lenta. (Falló GetClonedPrototypeById)"));
+		}
+
+		AActor* SpawnedNaveRapida = MyPrototypeRegistry->GetClonedPrototypeById(TEXT("Rapida"), GetWorld(), FVector(0.0f, 00.0f, 400.0f), FRotator::ZeroRotator); // Coordenada Y ajustada para que no se superpongan
+		if (SpawnedNaveRapida)
+		{
+			AAE_NaveEnemiga* NaveRapida = Cast<AAE_NaveEnemiga>(SpawnedNaveRapida);
+			if (NaveRapida)
+			{
+				UE_LOG(LogTemp, Log, TEXT("Nave Rápida clonada. Velocidad: %f"), NaveRapida->VelocidadMovimiento);
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Nave Rápida spawneda pero no es AAE_NaveEnemiga."));
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("No se pudo spawnear la Nave Rápida. (Falló GetClonedPrototypeById)"));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("MyPrototypeRegistry es nulo en SpawnExampleNaves(). Esto es un error grave."));
 	}
 }
 /*
