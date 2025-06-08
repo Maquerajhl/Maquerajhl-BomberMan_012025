@@ -16,6 +16,8 @@ class AInventoryActor;
 #define BOMBERMAN_012025_BomberMan_012025Character_generated_h
 
 #define FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execSimulateEnemyKilled); \
+	DECLARE_FUNCTION(execSimulatePlayerDeath); \
 	DECLARE_FUNCTION(execMoveForward); \
 	DECLARE_FUNCTION(execTakeItem); \
 	DECLARE_FUNCTION(execDropItem);

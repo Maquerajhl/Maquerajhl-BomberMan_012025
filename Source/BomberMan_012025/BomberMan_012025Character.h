@@ -99,6 +99,13 @@ public:
 private:
 	FVector MovementInput;
 	FVector CameraInput;
+	
+public:
+	UFUNCTION(BlueprintCallable, Category = "Testing")
+	void SimulatePlayerDeath();
+
+	UFUNCTION(BlueprintCallable, Category = "Testing")
+	void SimulateEnemyKilled();
 
 };
 

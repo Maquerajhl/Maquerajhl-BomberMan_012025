@@ -32,275 +32,286 @@
 //prototype
 #include "UObject/UObjectGlobals.h" 
 #include "UObject/SoftObjectPtr.h"
+#include "BombermanGameFlowFacade.h" // AsegÃºrate de tener este include
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != NULL)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
+    // set default pawn class to our Blueprinted character
+    static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
+    if (PlayerPawnBPClass.Class != NULL)
+    {
+        DefaultPawnClass = PlayerPawnBPClass.Class;
+    }
 
+    //prototypr
+    MyPrototypeRegistry = CreateDefaultSubobject<UPrototypeRegistry>(TEXT("NavePrototypeRegistry"));
 
-	//prototypr
-	MyPrototypeRegistry = CreateDefaultSubobject<UPrototypeRegistry>(TEXT("NavePrototypeRegistry"));
+    // Para asegurar que los Blueprints se cocinen (aunque no los carguemos aquÃ­)
+    ReferencedPrototypeClasses.Add(TSoftClassPtr<AActor>(FSoftObjectPath(TEXT("/Game/Blueprints/BP_NaveEnemiga_Lenta.BP_NaveEnemiga_Lenta_C"))));
+    ReferencedPrototypeClasses.Add(TSoftClassPtr<AActor>(FSoftObjectPath(TEXT("/Game/Blueprints/BP_NaveEnemiga_Rapida.BP_NaveEnemiga_Rapida_C"))));
 
-	// Para asegurar que los Blueprints se cocinen (aunque no los carguemos aquí)
-	ReferencedPrototypeClasses.Add(TSoftClassPtr<AActor>(FSoftObjectPath(TEXT("/Game/Blueprints/BP_NaveEnemiga_Lenta.BP_NaveEnemiga_Lenta_C"))));
-	ReferencedPrototypeClasses.Add(TSoftClassPtr<AActor>(FSoftObjectPath(TEXT("/Game/Blueprints/BP_NaveEnemiga_Rapida.BP_NaveEnemiga_Rapida_C"))));
-
+    // InicializaciÃ³n del GameFlowFacade
+    GameFlowFacade = nullptr;
 }
 
 void ABomberMan_012025GameMode::BeginPlay()
 {
-	Super::BeginPlay();
-	// prototype prueba 1
-	if (MyPrototypeRegistry)
-	{
-		UE_LOG(LogTemp, Log, TEXT("MyPrototypeRegistry es válido. Procediendo a cargar prototipos."));
+    Super::BeginPlay();
 
-		struct FPrototypeEntry { FString Key; FString Path; };
-		TArray<FPrototypeEntry> PrototypesToLoad = {
-			{ TEXT("Lenta"), TEXT("/Game/nave/BP_NaveEnemiga_Lenta.BP_NaveEnemiga_Lenta_C") },
-			{ TEXT("Rapida"), TEXT("/Game/nave/BP_NaveEnemiga_Rapida.BP_NaveEnemiga_Rapida_C") },
-		};
+    // Crear e inicializar la instancia del facade.
+    GameFlowFacade = NewObject<UBombermanGameFlowFacade>(this);
+    if (GameFlowFacade)
+    {
+        GameFlowFacade->Initialize(this);
+        GameFlowFacade->StartGameRound();
+    }
 
+    // prototype prueba 1
+    if (MyPrototypeRegistry)
+    {
+        UE_LOG(LogTemp, Log, TEXT("MyPrototypeRegistry es vï¿½lido. Procediendo a cargar prototipos."));
 
-		for (const auto& Entry : PrototypesToLoad)
-		{
-			UClass* PrototypeClass = LoadClass<AActor>(nullptr, *Entry.Path);
-			if (PrototypeClass)
-			{
-				// Asegúrate que la clase implementa la interfaz
-				if (PrototypeClass->ImplementsInterface(UIEnemigoPrototype::StaticClass()))
-				{
-					MyPrototypeRegistry->PrototypeClasses.Add(Entry.Key, PrototypeClass);
-					UE_LOG(LogTemp, Log, TEXT("DEBUG: Prototipo '%s' cargado y registrado correctamente desde '%s'."), *Entry.Key, *Entry.Path);
-				}
-				else
-				{
-					UE_LOG(LogTemp, Error, TEXT("DEBUG: ERROR: La clase cargada '%s' para el prototipo '%s' NO implementa la interfaz IIEnemigoPrototype. ¡Verifica el Blueprint!"), *PrototypeClass->GetName(), *Entry.Key);
-				}
-			}
-			else
-			{
-				UE_LOG(LogTemp, Error, TEXT("DEBUG: ERROR: No se pudo cargar el prototipo '%s' desde la ruta: '%s'. ¡Verifica la ruta y si el Blueprint está cocinado!"), *Entry.Key, *Entry.Path);
-			}
-		}
-		for (int i = 0; i <= FMath::RandRange(1, 40); i++) {
-			SpawnExampleNaves();
-		}
-			
-	}
-	else
-	{
-			TEXT("MyPrototypeRegistry is null in the GameMode");
-	}
-	//end
-
-	SpawnCieloNoche();
-	//AFabricaBloques* FabricaBloques = GetWorld()->SpawnActor<AFabricaBloques>(AFabricaBloques::StaticClass());
+        struct FPrototypeEntry { FString Key; FString Path; };
+        TArray<FPrototypeEntry> PrototypesToLoad = {
+            { TEXT("Lenta"), TEXT("/Game/nave/BP_NaveEnemiga_Lenta.BP_NaveEnemiga_Lenta_C") },
+            { TEXT("Rapida"), TEXT("/Game/nave/BP_NaveEnemiga_Rapida.BP_NaveEnemiga_Rapida_C") },
+        };
 
 
+        for (const auto& Entry : PrototypesToLoad)
+        {
+            UClass* PrototypeClass = LoadClass<AActor>(nullptr, *Entry.Path);
+            if (PrototypeClass)
+            {
+                // Asegï¿½rate que la clase implementa la interfaz
+                if (PrototypeClass->ImplementsInterface(UIEnemigoPrototype::StaticClass()))
+                {
+                    MyPrototypeRegistry->PrototypeClasses.Add(Entry.Key, PrototypeClass);
+                    UE_LOG(LogTemp, Log, TEXT("DEBUG: Prototipo '%s' cargado y registrado correctamente desde '%s'."), *Entry.Key, *Entry.Path);
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Error, TEXT("DEBUG: ERROR: La clase cargada '%s' para el prototipo '%s' NO implementa la interfaz IIEnemigoPrototype. ï¿½Verifica el Blueprint!"), *PrototypeClass->GetName(), *Entry.Key);
+                }
+            }
+            else
+            {
+                UE_LOG(LogTemp, Error, TEXT("DEBUG: ERROR: No se pudo cargar el prototipo '%s' desde la ruta: '%s'. ï¿½Verifica la ruta y si el Blueprint estï¿½ cocinado!"), *Entry.Key, *Entry.Path);
+            }
+        }
+        for (int i = 0; i <= FMath::RandRange(1, 40); i++) {
+            SpawnExampleNaves();
+        }
+            
+    }
+    else
+    {
+            TEXT("MyPrototypeRegistry is null in the GameMode");
+    }
+    //end
 
-	
-	//prueba de factorymethod
-
-
-	UWorld* const World = GetWorld();
-	if (World)
-	{
-		// nave
-		//pepe = World->SpawnActor<AAE_NaveEnemiga>(AAE_NaveEnemiga::StaticClass(), FVector(0.0f, 0.0f, 100.0f), FRotator(0.0f, 0.0f, 0.0f));
-	
-		//pepe->SetActorLocation(pepe->GetActorLocation() + FVector(0.0f, 0.0f, 300.0f)); // Ajusta la altura seg n sea necesario
-		//sosp
-
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-		AceroFactoryInstance = World->SpawnActor<ABloqueFactory>(ABloqueAceroFactory::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-		if (AceroFactoryInstance)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("GameMode:  BloqueAceroFactory instanciado con  xito!"));
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("GameMode:  Fallo al instanciar BloqueAceroFactory!"));
-		}
-
-		// instancia de ABloqueLadrilloFactory
-		LadrilloFactoryInstance = World->SpawnActor<ABloqueFactory>(ABloqueLadrilloFactory::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-		if (LadrilloFactoryInstance)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("GameMode:  BloqueLadrilloFactory instanciado con  xito!"));
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("GameMode:  Fallo al instanciar BloqueLadrilloFactory!"));
-		}
-
-		if (AceroFactoryInstance)
-		{
-			ABloque* MiBloqueDeAcero = AceroFactoryInstance->CrearBloque();
-			if (MiBloqueDeAcero)
-			{
-				MiBloqueDeAcero->SetActorLocation(FVector(0.f, 0.f, 150.f));
-				UE_LOG(LogTemp, Warning, TEXT("GameMode:  Bloque de Acero creado usando Factory Method y visible!"));
-			}
-			else
-			{
-				UE_LOG(LogTemp, Error, TEXT("GameMode: El Factory de Acero no pudo crear el Bloque."));
-			}
-		}
-
-		if (LadrilloFactoryInstance)
-		{
-			ABloque* MiBloqueDeLadrillo = LadrilloFactoryInstance->CrearBloque();
-			if (MiBloqueDeLadrillo)
-			{
-				MiBloqueDeLadrillo->SetActorLocation(FVector(200.f, 0.f, 150.f));
-				UE_LOG(LogTemp, Warning, TEXT("GameMode:  Bloque de Ladrillo creado usando Factory Method y visible!"));
-			}
-			else
-			{
-				UE_LOG(LogTemp, Error, TEXT("GameMode: El Factory de Ladrillo no pudo crear el Bloque."));
-			}
-		}
-
-		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green,
-			TEXT("GameMode:  Bloques creados usando Factory Method!"));
-	}
-
-
-	//end prueba
-
-
-	//prueba de builder
-
-	UWorld* Mundo = GetWorld();
-	if (!Mundo)
-	{
-		UE_LOG(LogTemp, Error, TEXT("ABomberMan_012025GameMode::BeginPlay - No se pudo obtener el Mundo."));
-		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - No se pudo obtener el Mundo."));
-		return;
-	}
-
-	FActorSpawnParameters ParametrosSpawn;
-	ParametrosSpawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	ParametrosSpawn.bNoFail = true;
-
-	// 1. Instanciar el Concrete Builder (El Constructor)
-	ConstructorDelJuego = Mundo->SpawnActor<AConstructorLaberintoConcreto>(AConstructorLaberintoConcreto::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn);
-	if (!ConstructorDelJuego)
-	{
-		UE_LOG(LogTemp, Error, TEXT("GameMode: fail el spawn de AConstructorLaberintoConcreto."));
-		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - Fallo el spawn del Constructor."));
-		return;
-	}
-	FString MensajeConstructor = TEXT("GameMode: ConstructorLaberintoConcreto instanciado.");
-	UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeConstructor);
-	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, MensajeConstructor);
-
-	// 2. Instanciar el Director
-	DirectorDelJuego = Mundo->SpawnActor<ADirectorLaberinto>(ADirectorLaberinto::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn);
-	if (!DirectorDelJuego)
-	{
-		UE_LOG(LogTemp, Error, TEXT("GameMode: Fallo el spawn de ADirectorLaberinto."));
-		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - fallo el spawn del Director."));
-		/*	if (ConstructorDelJuego && !ConstructorDelJuego->IsPendingKill())
-		{
-			ConstructorDelJuego->Destroy();
-		}*/
-		return;
-	}
-	FString MensajeDirector = TEXT("GameMode: DirectorLaberinto instanciado.");
-	UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeDirector);
-	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, MensajeDirector);
-
-	// 3. Asignar el Builder al Director
-	DirectorDelJuego->ConstructorActualBuilder = ConstructorDelJuego;
-	FString MensajeAsignacion = TEXT("GameMode: Constructor asignado al Director.");
-	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, MensajeAsignacion);
-
-	// 4. El cliente (GameMode) pide al Director que construya el laberinto
-	LaberintoActual = DirectorDelJuego->ConstruirLaberintoPorCapas(
-		DirectorDelJuego->DatosPlantillaPiso,
-		DirectorDelJuego->DatosPlantillaBordeInferior,
-		DirectorDelJuego->DatosPlantillaBordeSuperior,
-		DirectorDelJuego->DatosPlantillaMurosInferiores,
-		DirectorDelJuego->DatosPlantillaMurosSuperiores
-	);
-
-	if (LaberintoActual)
-	{
-		FString MensajeLaberintoFinal = FString::Printf(TEXT("GameMode: Laberinto Finalizado y Referencia Obtenida. Total de bloques: %d"), LaberintoActual->ObtenerBloques().Num());
-		if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Blue, MensajeLaberintoFinal);
-	}
-
-	//end prueba
+    SpawnCieloNoche();
+    //AFabricaBloques* FabricaBloques = GetWorld()->SpawnActor<AFabricaBloques>(AFabricaBloques::StaticClass());
 
 
 
-
-	/*
-	FVector posicionBloque = FVector(
-		XInicial + 0 * AnchoBloque,
-		YInicial + 0 * LargoBloque,
-		20.0f); // Z queda en 0 (altura del bloque)
+    
+    //prueba de factorymethod
 
 
-	ABloque* BloqueNuevo = FabricaBloques->CrearBloque("Acero", posicionBloque);
-	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow,
-		TEXT("Bloque creado"));
-		*/
-	//GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("Bloque Spawning"));
+    UWorld* const World = GetWorld();
+    if (World)
+    {
+        // nave
+        //pepe = World->SpawnActor<AAE_NaveEnemiga>(AAE_NaveEnemiga::StaticClass(), FVector(0.0f, 0.0f, 100.0f), FRotator(0.0f, 0.0f, 0.0f));
+    
+        //pepe->SetActorLocation(pepe->GetActorLocation() + FVector(0.0f, 0.0f, 300.0f)); // Ajusta la altura seg n sea necesario
+        //sosp
 
-	
-	// Recorremos la matriz para generar los bloques
-	/*
-	for (int32 fila = 0; fila < aMapaBloques.Num(); ++fila)
-	{
-		for (int32 columna = 0; columna < aMapaBloques[fila].Num(); ++columna)
-		{
-			int32 valor = aMapaBloques[fila][columna];
-			if (valor != 0) // Si no es espacio vac o
-			{
-				// Calculamos la posici n del bloque
-				FVector posicionBloque = FVector(
-					XInicial + columna * AnchoBloque,
-					YInicial + fila * LargoBloque,
-					20.0f); // Z queda en 0 (altura del bloque)
+        FActorSpawnParameters SpawnParams;
+        SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-				// Llamamos a la funci n para generar un bloque
-				//SpawnBloque(posicionBloque, valor);
-				switch (valor)
-				{
-				case 1: // Madera
-					FabricaBloques->CrearBloque("Madera", posicionBloque);
-					//SpawnBloque(posicionBloque, 1);
-					break;
-				case 2: // Ladrillo
-					FabricaBloques->CrearBloque("Ladrillo", posicionBloque);
-					break;
-				case 3: // Concreto
-					FabricaBloques->CrearBloque("Concreto", posicionBloque);
-					break;
-				case 4: // Acero
-					FabricaBloques->CrearBloque("Acero", posicionBloque);
-					break;
-				case 5: // Burbuja
-					FabricaBloques->CrearBloque("Burbuja", posicionBloque);
-					break;
-				default:
-					break;
-				}
-			}
-		}
-	}
-	*/
-	//GetWorld()->GetTimerManager().SetTimer(tHDestruirBloques, this, &ABomberMan_012025GameMode::DestruirBloque, 2.0f, true);
+        AceroFactoryInstance = World->SpawnActor<ABloqueFactory>(ABloqueAceroFactory::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+        if (AceroFactoryInstance)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("GameMode:  BloqueAceroFactory instanciado con  xito!"));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("GameMode:  Fallo al instanciar BloqueAceroFactory!"));
+        }
+
+        // instancia de ABloqueLadrilloFactory
+        LadrilloFactoryInstance = World->SpawnActor<ABloqueFactory>(ABloqueLadrilloFactory::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+        if (LadrilloFactoryInstance)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("GameMode:  BloqueLadrilloFactory instanciado con  xito!"));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("GameMode:  Fallo al instanciar BloqueLadrilloFactory!"));
+        }
+
+        if (AceroFactoryInstance)
+        {
+            ABloque* MiBloqueDeAcero = AceroFactoryInstance->CrearBloque();
+            if (MiBloqueDeAcero)
+            {
+                MiBloqueDeAcero->SetActorLocation(FVector(0.f, 0.f, 150.f));
+                UE_LOG(LogTemp, Warning, TEXT("GameMode:  Bloque de Acero creado usando Factory Method y visible!"));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Error, TEXT("GameMode: El Factory de Acero no pudo crear el Bloque."));
+            }
+        }
+
+        if (LadrilloFactoryInstance)
+        {
+            ABloque* MiBloqueDeLadrillo = LadrilloFactoryInstance->CrearBloque();
+            if (MiBloqueDeLadrillo)
+            {
+                MiBloqueDeLadrillo->SetActorLocation(FVector(200.f, 0.f, 150.f));
+                UE_LOG(LogTemp, Warning, TEXT("GameMode:  Bloque de Ladrillo creado usando Factory Method y visible!"));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Error, TEXT("GameMode: El Factory de Ladrillo no pudo crear el Bloque."));
+            }
+        }
+
+        GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green,
+            TEXT("GameMode:  Bloques creados usando Factory Method!"));
+    }
+
+
+    //end prueba
+
+
+    //prueba de builder
+
+    UWorld* Mundo = GetWorld();
+    if (!Mundo)
+    {
+        UE_LOG(LogTemp, Error, TEXT("ABomberMan_012025GameMode::BeginPlay - No se pudo obtener el Mundo."));
+        if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - No se pudo obtener el Mundo."));
+        return;
+    }
+
+    FActorSpawnParameters ParametrosSpawn;
+    ParametrosSpawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    ParametrosSpawn.bNoFail = true;
+
+    // 1. Instanciar el Concrete Builder (El Constructor)
+    ConstructorDelJuego = Mundo->SpawnActor<AConstructorLaberintoConcreto>(AConstructorLaberintoConcreto::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn);
+    if (!ConstructorDelJuego)
+    {
+        UE_LOG(LogTemp, Error, TEXT("GameMode: fail el spawn de AConstructorLaberintoConcreto."));
+        if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - Fallo el spawn del Constructor."));
+        return;
+    }
+    FString MensajeConstructor = TEXT("GameMode: ConstructorLaberintoConcreto instanciado.");
+    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeConstructor);
+    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, MensajeConstructor);
+
+    // 2. Instanciar el Director
+    DirectorDelJuego = Mundo->SpawnActor<ADirectorLaberinto>(ADirectorLaberinto::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, ParametrosSpawn);
+    if (!DirectorDelJuego)
+    {
+        UE_LOG(LogTemp, Error, TEXT("GameMode: Fallo el spawn de ADirectorLaberinto."));
+        if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("ERROR: GameMode - fallo el spawn del Director."));
+        /*	if (ConstructorDelJuego && !ConstructorDelJuego->IsPendingKill())
+        {
+            ConstructorDelJuego->Destroy();
+        }*/
+        return;
+    }
+    FString MensajeDirector = TEXT("GameMode: DirectorLaberinto instanciado.");
+    UE_LOG(LogTemp, Log, TEXT("%s"), *MensajeDirector);
+    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, MensajeDirector);
+
+    // 3. Asignar el Builder al Director
+    DirectorDelJuego->ConstructorActualBuilder = ConstructorDelJuego;
+    FString MensajeAsignacion = TEXT("GameMode: Constructor asignado al Director.");
+    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, MensajeAsignacion);
+
+    // 4. El cliente (GameMode) pide al Director que construya el laberinto
+    LaberintoActual = DirectorDelJuego->ConstruirLaberintoPorCapas(
+        DirectorDelJuego->DatosPlantillaPiso,
+        DirectorDelJuego->DatosPlantillaBordeInferior,
+        DirectorDelJuego->DatosPlantillaBordeSuperior,
+        DirectorDelJuego->DatosPlantillaMurosInferiores,
+        DirectorDelJuego->DatosPlantillaMurosSuperiores
+    );
+
+    if (LaberintoActual)
+    {
+        FString MensajeLaberintoFinal = FString::Printf(TEXT("GameMode: Laberinto Finalizado y Referencia Obtenida. Total de bloques: %d"), LaberintoActual->ObtenerBloques().Num());
+        if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Blue, MensajeLaberintoFinal);
+    }
+
+    //end prueba
+
+
+
+
+    /*
+    FVector posicionBloque = FVector(
+        XInicial + 0 * AnchoBloque,
+        YInicial + 0 * LargoBloque,
+        20.0f); // Z queda en 0 (altura del bloque)
+
+
+    ABloque* BloqueNuevo = FabricaBloques->CrearBloque("Acero", posicionBloque);
+    GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow,
+        TEXT("Bloque creado"));
+        */
+    //GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("Bloque Spawning"));
+
+    
+    // Recorremos la matriz para generar los bloques
+    /*
+    for (int32 fila = 0; fila < aMapaBloques.Num(); ++fila)
+    {
+        for (int32 columna = 0; columna < aMapaBloques[fila].Num(); ++columna)
+        {
+            int32 valor = aMapaBloques[fila][columna];
+            if (valor != 0) // Si no es espacio vac o
+            {
+                // Calculamos la posici n del bloque
+                FVector posicionBloque = FVector(
+                    XInicial + columna * AnchoBloque,
+                    YInicial + fila * LargoBloque,
+                    20.0f); // Z queda en 0 (altura del bloque)
+
+                // Llamamos a la funci n para generar un bloque
+                //SpawnBloque(posicionBloque, valor);
+                switch (valor)
+                {
+                case 1: // Madera
+                    FabricaBloques->CrearBloque("Madera", posicionBloque);
+                    //SpawnBloque(posicionBloque, 1);
+                    break;
+                case 2: // Ladrillo
+                    FabricaBloques->CrearBloque("Ladrillo", posicionBloque);
+                    break;
+                case 3: // Concreto
+                    FabricaBloques->CrearBloque("Concreto", posicionBloque);
+                    break;
+                case 4: // Acero
+                    FabricaBloques->CrearBloque("Acero", posicionBloque);
+                    break;
+                case 5: // Burbuja
+                    FabricaBloques->CrearBloque("Burbuja", posicionBloque);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    }
+    */
+    //GetWorld()->GetTimerManager().SetTimer(tHDestruirBloques, this, &ABomberMan_012025GameMode::DestruirBloque, 2.0f, true);
 }
 void ABomberMan_012025GameMode::SpawnCieloNoche()
 {
@@ -326,7 +337,7 @@ void ABomberMan_012025GameMode::SpawnCieloNoche()
 }
 void ABomberMan_012025GameMode::SpawnExampleNaves()
 {
-	UE_LOG(LogTemp, Log, TEXT("SpawnExampleNaves() se está ejecutando."));
+	UE_LOG(LogTemp, Log, TEXT("SpawnExampleNaves() se estï¿½ ejecutando."));
 
 	if (MyPrototypeRegistry)
 	{
@@ -345,7 +356,7 @@ void ABomberMan_012025GameMode::SpawnExampleNaves()
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("No se pudo spawnear la Nave Lenta. (Falló GetClonedPrototypeById)"));
+			UE_LOG(LogTemp, Warning, TEXT("No se pudo spawnear la Nave Lenta. (Fallï¿½ GetClonedPrototypeById)"));
 		}
 
 		AActor* SpawnedNaveRapida = MyPrototypeRegistry->GetClonedPrototypeById(TEXT("Rapida"), GetWorld(), FVector(0.0f, 00.0f, 400.0f), FRotator::ZeroRotator); // Coordenada Y ajustada para que no se superpongan
@@ -354,22 +365,41 @@ void ABomberMan_012025GameMode::SpawnExampleNaves()
 			AAE_NaveEnemiga* NaveRapida = Cast<AAE_NaveEnemiga>(SpawnedNaveRapida);
 			if (NaveRapida)
 			{
-				UE_LOG(LogTemp, Log, TEXT("Nave Rápida clonada. Velocidad: %f"), NaveRapida->VelocidadMovimiento);
+				UE_LOG(LogTemp, Log, TEXT("Nave Rï¿½pida clonada. Velocidad: %f"), NaveRapida->VelocidadMovimiento);
 			}
 			else
 			{
-				UE_LOG(LogTemp, Warning, TEXT("Nave Rápida spawneda pero no es AAE_NaveEnemiga."));
+				UE_LOG(LogTemp, Warning, TEXT("Nave Rï¿½pida spawneda pero no es AAE_NaveEnemiga."));
 			}
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("No se pudo spawnear la Nave Rápida. (Falló GetClonedPrototypeById)"));
+			UE_LOG(LogTemp, Warning, TEXT("No se pudo spawnear la Nave Rï¿½pida. (Fallï¿½ GetClonedPrototypeById)"));
 		}
 	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("MyPrototypeRegistry es nulo en SpawnExampleNaves(). Esto es un error grave."));
 	}
+}
+
+
+void ABomberMan_012025GameMode::PlayerDied()
+{
+    if (GameFlowFacade)
+    {
+        GameFlowFacade->HandlePlayerDeath();
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Player has died! Game Over!"));
+    }
+}
+
+void ABomberMan_012025GameMode::ReportEnemyKilled()
+{
+    if (GameFlowFacade)
+    {
+        GameFlowFacade->OnEnemyKilled();
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Enemy has been killed!"));
+    }
 }
 /*
 // Funci n para generar un bloque

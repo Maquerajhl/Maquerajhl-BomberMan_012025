@@ -7,6 +7,7 @@
 #include "CieloNoche.h"
 #include "GameFramework/GameModeBase.h"
 #include "PrototypeRegistry.h"
+#include "BombermanGameFlowFacade.h" //para el facade
 #include "BomberMan_012025GameMode.generated.h"
 //para el factoryMethod
 class ABloqueFactory;
@@ -25,7 +26,7 @@ class ABomberMan_012025GameMode : public AGameModeBase
 public:
 	ABomberMan_012025GameMode();
 
-public: 
+protected:
 	virtual void BeginPlay() override;
 
 public:
@@ -102,6 +103,17 @@ public:
 private:
 	UFUNCTION()
 	void SpawnExampleNaves();
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "GameFlow")
+	void PlayerDied();
+
+	UFUNCTION(BlueprintCallable, Category = "GameFlow")
+	void ReportEnemyKilled();
+
+private:
+	UPROPERTY()
+	UBombermanGameFlowFacade* GameFlowFacade;
 
 };
 

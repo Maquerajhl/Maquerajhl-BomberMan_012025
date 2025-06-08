@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "BomberMan_012025GameMode.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -135,6 +136,12 @@ void ABomberMan_012025Character::NotifyControllerChanged()
 
 void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	// Enlazar entradas para pruebas.
+	PlayerInputComponent->BindAction("SimulateDeath", IE_Pressed, this, &ABomberMan_012025Character::SimulatePlayerDeath);
+	PlayerInputComponent->BindAction("SimulateEnemyKilled", IE_Pressed, this, &ABomberMan_012025Character::SimulateEnemyKilled);
+
 	PlayerInputComponent->BindAction("DropItem",
 		EInputEvent::IE_Pressed,
 		this,
@@ -149,17 +156,10 @@ void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* Play
 	PlayerInputComponent->BindAxis("CameraYaw", this,
 		&ABomberMan_012025Character::YawCamera);
 
-	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
-		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
-		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::Move);
-
-		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::Look);
 	}
 	else
@@ -247,4 +247,20 @@ void ABomberMan_012025Character::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ABomberMan_012025Character::SimulatePlayerDeath()
+{
+    if (ABomberMan_012025GameMode* GameMode = Cast<ABomberMan_012025GameMode>(GetWorld()->GetAuthGameMode()))
+    {
+        GameMode->PlayerDied();
+    }
+}
+
+void ABomberMan_012025Character::SimulateEnemyKilled()
+{
+    if (ABomberMan_012025GameMode* GameMode = Cast<ABomberMan_012025GameMode>(GetWorld()->GetAuthGameMode()))
+    {
+        GameMode->ReportEnemyKilled();
+    }
 }

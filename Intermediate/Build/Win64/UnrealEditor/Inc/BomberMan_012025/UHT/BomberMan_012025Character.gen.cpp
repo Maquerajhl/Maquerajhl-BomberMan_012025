@@ -99,6 +99,66 @@ DEFINE_FUNCTION(ABomberMan_012025Character::execMoveForward)
 }
 // End Class ABomberMan_012025Character Function MoveForward
 
+// Begin Class ABomberMan_012025Character Function SimulateEnemyKilled
+struct Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Testing" },
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "SimulateEnemyKilled", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABomberMan_012025Character::execSimulateEnemyKilled)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->SimulateEnemyKilled();
+	P_NATIVE_END;
+}
+// End Class ABomberMan_012025Character Function SimulateEnemyKilled
+
+// Begin Class ABomberMan_012025Character Function SimulatePlayerDeath
+struct Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Testing" },
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "SimulatePlayerDeath", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABomberMan_012025Character::execSimulatePlayerDeath)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->SimulatePlayerDeath();
+	P_NATIVE_END;
+}
+// End Class ABomberMan_012025Character Function SimulatePlayerDeath
+
 // Begin Class ABomberMan_012025Character Function TakeItem
 struct Z_Construct_UFunction_ABomberMan_012025Character_TakeItem_Statics
 {
@@ -148,6 +208,8 @@ void ABomberMan_012025Character::StaticRegisterNativesABomberMan_012025Character
 	static const FNameNativePtrPair Funcs[] = {
 		{ "DropItem", &ABomberMan_012025Character::execDropItem },
 		{ "MoveForward", &ABomberMan_012025Character::execMoveForward },
+		{ "SimulateEnemyKilled", &ABomberMan_012025Character::execSimulateEnemyKilled },
+		{ "SimulatePlayerDeath", &ABomberMan_012025Character::execSimulatePlayerDeath },
 		{ "TakeItem", &ABomberMan_012025Character::execTakeItem },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -250,6 +312,8 @@ struct Z_Construct_UClass_ABomberMan_012025Character_Statics
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ABomberMan_012025Character_DropItem, "DropItem" }, // 2623985191
 		{ &Z_Construct_UFunction_ABomberMan_012025Character_MoveForward, "MoveForward" }, // 2107662435
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled, "SimulateEnemyKilled" }, // 2035281196
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath, "SimulatePlayerDeath" }, // 2837916451
 		{ &Z_Construct_UFunction_ABomberMan_012025Character_TakeItem, "TakeItem" }, // 3814464523
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -315,10 +379,10 @@ ABomberMan_012025Character::~ABomberMan_012025Character() {}
 struct Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABomberMan_012025Character, ABomberMan_012025Character::StaticClass, TEXT("ABomberMan_012025Character"), &Z_Registration_Info_UClass_ABomberMan_012025Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_012025Character), 1371317052U) },
+		{ Z_Construct_UClass_ABomberMan_012025Character, ABomberMan_012025Character::StaticClass, TEXT("ABomberMan_012025Character"), &Z_Registration_Info_UClass_ABomberMan_012025Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_012025Character), 83827133U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_3682881823(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_103319343(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
