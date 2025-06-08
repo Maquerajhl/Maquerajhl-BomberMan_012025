@@ -7,8 +7,16 @@
 #include "CieloNoche.h"
 #include "GameFramework/GameModeBase.h"
 #include "PrototypeRegistry.h"
+
+//composite
+#include "PowerUpItem_BombCount.h"
+#include "PowerUpItem_ExplosionRange.h"
+
+
 #include "BombermanGameFlowFacade.h" //para el facade
 #include "BomberMan_012025GameMode.generated.h"
+
+
 //para el factoryMethod
 class ABloqueFactory;
 class ABloque;
@@ -115,6 +123,8 @@ private:
 	UPROPERTY()
 	UBombermanGameFlowFacade* GameFlowFacade;
 
+public:
+	void SpawnPowerUps();
 };
 
 /*

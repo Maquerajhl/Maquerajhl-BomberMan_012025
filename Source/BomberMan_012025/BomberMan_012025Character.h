@@ -1,4 +1,3 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -7,7 +6,14 @@
 #include "Logging/LogMacros.h"
 #include "ACInventario.h"
 #include "InventoryActor.h"
+
+#include "PowerUpCollection.h" // Asegúrate de incluir el encabezado de UPowerUpCollection
+
 #include "BomberMan_012025Character.generated.h"
+
+
+// Declaración forward de UPowerUpCollection
+class UPowerUpCollection;
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -51,6 +57,10 @@ public:
 	
 	UPROPERTY()
 	UACInventario* MyInventory;
+
+	UPROPERTY()
+	UPowerUpCollection* PowerUpCollection; // <-- Agregado
+
 	UFUNCTION()
 	void DropItem();
 	UFUNCTION()
@@ -106,6 +116,29 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Testing")
 	void SimulateEnemyKilled();
+	
+	//para el composite
+
+
+private:
+	// Variable to store the maximum number of bombs
+	int32 MaxBombs;
+
+public:
+	UFUNCTION()
+	void SetMaxBombs(int32 NewMaxBombs);
+
+	UFUNCTION()
+	int32 GetMaxBombs() const;
+
+	UFUNCTION()
+	void SetExplosionRange(int32 NewExplosionRange);
+
+	UFUNCTION()
+	int32 GetExplosionRange() const;
+private:
+	// Variable to store the explosion range  
+	int32 ExplosionRange;
 
 };
 

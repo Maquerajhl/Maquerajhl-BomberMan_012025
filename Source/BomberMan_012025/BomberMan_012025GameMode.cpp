@@ -58,6 +58,12 @@ void ABomberMan_012025GameMode::BeginPlay()
 {
     Super::BeginPlay();
 
+
+    //
+
+    SpawnPowerUps();
+    SpawnPowerUps();
+
     // Crear e inicializar la instancia del facade.
     GameFlowFacade = NewObject<UBombermanGameFlowFacade>(this);
     if (GameFlowFacade)
@@ -400,6 +406,38 @@ void ABomberMan_012025GameMode::ReportEnemyKilled()
         GameFlowFacade->OnEnemyKilled();
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Enemy has been killed!"));
     }
+}
+void ABomberMan_012025GameMode::SpawnPowerUps()
+{
+
+     // Posiciones donde quieres spawnear los power-ups
+        TArray<FVector> PowerUpLocations = {
+            FVector(100.0f, 200.0f, 400.0f),
+            FVector(0.0f, 100.0f, 400.0f),
+            FVector(100.0f, 0.0f, 400.0f)
+        };
+
+        // Spawnear power-ups de bomb count
+        for (const FVector& Location : PowerUpLocations)
+        {
+            APowerUpItem_BombCount* PowerUp = GetWorld()->SpawnActor<APowerUpItem_BombCount>(APowerUpItem_BombCount::StaticClass(), Location, FRotator::ZeroRotator);
+            if (PowerUp)
+            {
+                UE_LOG(LogTemp, Log, TEXT("Spawned BombCount PowerUp at %s"), *Location.ToString());
+            }
+        }
+
+        // Spawnear power-ups de explosion range
+        for (const FVector& Location : PowerUpLocations)
+        {
+            APowerUpItem_ExplosionRange* PowerUp = GetWorld()->SpawnActor<APowerUpItem_ExplosionRange>(APowerUpItem_ExplosionRange::StaticClass(), Location + FVector(100.0f, 100.0f, 0.0f), FRotator::ZeroRotator);
+            if (PowerUp)
+            {
+                UE_LOG(LogTemp, Log, TEXT("Spawned ExplosionRange PowerUp at %s"), *(Location + FVector(100.0f, 100.0f, 0.0f)).ToString());
+            }
+        }
+    
+
 }
 /*
 // Funci n para generar un bloque

@@ -12,6 +12,11 @@
 #include "InputActionValue.h"
 #include "BomberMan_012025GameMode.h"
 
+#include "PowerUpCollection.h"
+#include "PowerUpBombCount.h"
+#include "PowerUpExplosionRange.h"
+
+
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
@@ -55,6 +60,8 @@ ABomberMan_012025Character::ABomberMan_012025Character()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
 	MyInventory = CreateDefaultSubobject<UACInventario>("MyInventory");
+
+	PowerUpCollection = CreateDefaultSubobject<UPowerUpCollection>("PowerUpCollection");
 
 }
 
@@ -263,4 +270,24 @@ void ABomberMan_012025Character::SimulateEnemyKilled()
     {
         GameMode->ReportEnemyKilled();
     }
+}
+
+void ABomberMan_012025Character::SetMaxBombs(int32 NewMaxBombs)
+{
+	MaxBombs = NewMaxBombs;
+}
+
+int32 ABomberMan_012025Character::GetMaxBombs() const
+{
+	return MaxBombs;
+}
+
+void ABomberMan_012025Character::SetExplosionRange(int32 NewExplosionRange)
+{
+	ExplosionRange = NewExplosionRange;
+}
+
+int32 ABomberMan_012025Character::GetExplosionRange() const
+{
+	return ExplosionRange;
 }

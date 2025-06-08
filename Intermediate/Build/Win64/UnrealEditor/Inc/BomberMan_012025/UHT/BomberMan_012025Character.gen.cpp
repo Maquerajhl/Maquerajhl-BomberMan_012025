@@ -14,6 +14,7 @@ BOMBERMAN_012025_API UClass* Z_Construct_UClass_ABomberMan_012025Character();
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_ABomberMan_012025Character_NoRegister();
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_AInventoryActor_NoRegister();
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_UACInventario_NoRegister();
+BOMBERMAN_012025_API UClass* Z_Construct_UClass_UPowerUpCollection_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
@@ -27,7 +28,13 @@ struct Z_Construct_UFunction_ABomberMan_012025Character_DropItem_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// <-- Agregado\n" },
+#endif
 		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "<-- Agregado" },
+#endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
@@ -50,6 +57,88 @@ DEFINE_FUNCTION(ABomberMan_012025Character::execDropItem)
 	P_NATIVE_END;
 }
 // End Class ABomberMan_012025Character Function DropItem
+
+// Begin Class ABomberMan_012025Character Function GetExplosionRange
+struct Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics
+{
+	struct BomberMan_012025Character_eventGetExplosionRange_Parms
+	{
+		int32 ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FIntPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BomberMan_012025Character_eventGetExplosionRange_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "GetExplosionRange", nullptr, nullptr, Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::PropPointers), sizeof(Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::BomberMan_012025Character_eventGetExplosionRange_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x40020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::BomberMan_012025Character_eventGetExplosionRange_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABomberMan_012025Character::execGetExplosionRange)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(int32*)Z_Param__Result=P_THIS->GetExplosionRange();
+	P_NATIVE_END;
+}
+// End Class ABomberMan_012025Character Function GetExplosionRange
+
+// Begin Class ABomberMan_012025Character Function GetMaxBombs
+struct Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics
+{
+	struct BomberMan_012025Character_eventGetMaxBombs_Parms
+	{
+		int32 ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FIntPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BomberMan_012025Character_eventGetMaxBombs_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "GetMaxBombs", nullptr, nullptr, Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::PropPointers), sizeof(Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::BomberMan_012025Character_eventGetMaxBombs_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x40020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::BomberMan_012025Character_eventGetMaxBombs_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABomberMan_012025Character::execGetMaxBombs)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(int32*)Z_Param__Result=P_THIS->GetMaxBombs();
+	P_NATIVE_END;
+}
+// End Class ABomberMan_012025Character Function GetMaxBombs
 
 // Begin Class ABomberMan_012025Character Function MoveForward
 struct Z_Construct_UFunction_ABomberMan_012025Character_MoveForward_Statics
@@ -98,6 +187,90 @@ DEFINE_FUNCTION(ABomberMan_012025Character::execMoveForward)
 	P_NATIVE_END;
 }
 // End Class ABomberMan_012025Character Function MoveForward
+
+// Begin Class ABomberMan_012025Character Function SetExplosionRange
+struct Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics
+{
+	struct BomberMan_012025Character_eventSetExplosionRange_Parms
+	{
+		int32 NewExplosionRange;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FIntPropertyParams NewProp_NewExplosionRange;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::NewProp_NewExplosionRange = { "NewExplosionRange", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BomberMan_012025Character_eventSetExplosionRange_Parms, NewExplosionRange), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::NewProp_NewExplosionRange,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "SetExplosionRange", nullptr, nullptr, Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::PropPointers), sizeof(Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::BomberMan_012025Character_eventSetExplosionRange_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::BomberMan_012025Character_eventSetExplosionRange_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABomberMan_012025Character::execSetExplosionRange)
+{
+	P_GET_PROPERTY(FIntProperty,Z_Param_NewExplosionRange);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->SetExplosionRange(Z_Param_NewExplosionRange);
+	P_NATIVE_END;
+}
+// End Class ABomberMan_012025Character Function SetExplosionRange
+
+// Begin Class ABomberMan_012025Character Function SetMaxBombs
+struct Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics
+{
+	struct BomberMan_012025Character_eventSetMaxBombs_Parms
+	{
+		int32 NewMaxBombs;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FIntPropertyParams NewProp_NewMaxBombs;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::NewProp_NewMaxBombs = { "NewMaxBombs", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(BomberMan_012025Character_eventSetMaxBombs_Parms, NewMaxBombs), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::NewProp_NewMaxBombs,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025Character, nullptr, "SetMaxBombs", nullptr, nullptr, Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::PropPointers), sizeof(Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::BomberMan_012025Character_eventSetMaxBombs_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::BomberMan_012025Character_eventSetMaxBombs_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABomberMan_012025Character::execSetMaxBombs)
+{
+	P_GET_PROPERTY(FIntProperty,Z_Param_NewMaxBombs);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->SetMaxBombs(Z_Param_NewMaxBombs);
+	P_NATIVE_END;
+}
+// End Class ABomberMan_012025Character Function SetMaxBombs
 
 // Begin Class ABomberMan_012025Character Function SimulateEnemyKilled
 struct Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled_Statics
@@ -207,7 +380,11 @@ void ABomberMan_012025Character::StaticRegisterNativesABomberMan_012025Character
 	UClass* Class = ABomberMan_012025Character::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
 		{ "DropItem", &ABomberMan_012025Character::execDropItem },
+		{ "GetExplosionRange", &ABomberMan_012025Character::execGetExplosionRange },
+		{ "GetMaxBombs", &ABomberMan_012025Character::execGetMaxBombs },
 		{ "MoveForward", &ABomberMan_012025Character::execMoveForward },
+		{ "SetExplosionRange", &ABomberMan_012025Character::execSetExplosionRange },
+		{ "SetMaxBombs", &ABomberMan_012025Character::execSetMaxBombs },
 		{ "SimulateEnemyKilled", &ABomberMan_012025Character::execSimulateEnemyKilled },
 		{ "SimulatePlayerDeath", &ABomberMan_012025Character::execSimulatePlayerDeath },
 		{ "TakeItem", &ABomberMan_012025Character::execTakeItem },
@@ -299,6 +476,9 @@ struct Z_Construct_UClass_ABomberMan_012025Character_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_PowerUpCollection_MetaData[] = {
+		{ "ModuleRelativePath", "BomberMan_012025Character.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_CameraBoom;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FollowCamera;
@@ -307,11 +487,16 @@ struct Z_Construct_UClass_ABomberMan_012025Character_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_LookAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MyInventory;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_PowerUpCollection;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_ABomberMan_012025Character_DropItem, "DropItem" }, // 2623985191
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_DropItem, "DropItem" }, // 1820579948
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_GetExplosionRange, "GetExplosionRange" }, // 3474156074
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_GetMaxBombs, "GetMaxBombs" }, // 2656266326
 		{ &Z_Construct_UFunction_ABomberMan_012025Character_MoveForward, "MoveForward" }, // 2107662435
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_SetExplosionRange, "SetExplosionRange" }, // 3917221082
+		{ &Z_Construct_UFunction_ABomberMan_012025Character_SetMaxBombs, "SetMaxBombs" }, // 2863119019
 		{ &Z_Construct_UFunction_ABomberMan_012025Character_SimulateEnemyKilled, "SimulateEnemyKilled" }, // 2035281196
 		{ &Z_Construct_UFunction_ABomberMan_012025Character_SimulatePlayerDeath, "SimulatePlayerDeath" }, // 2837916451
 		{ &Z_Construct_UFunction_ABomberMan_012025Character_TakeItem, "TakeItem" }, // 3814464523
@@ -329,6 +514,7 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABomberMan_012
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_MoveAction = { "MoveAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABomberMan_012025Character, MoveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveAction_MetaData), NewProp_MoveAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_LookAction = { "LookAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABomberMan_012025Character, LookAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_LookAction_MetaData), NewProp_LookAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_MyInventory = { "MyInventory", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABomberMan_012025Character, MyInventory), Z_Construct_UClass_UACInventario_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MyInventory_MetaData), NewProp_MyInventory_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_PowerUpCollection = { "PowerUpCollection", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABomberMan_012025Character, PowerUpCollection), Z_Construct_UClass_UPowerUpCollection_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PowerUpCollection_MetaData), NewProp_PowerUpCollection_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABomberMan_012025Character_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_CameraBoom,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_FollowCamera,
@@ -337,6 +523,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABomberMa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_MoveAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_LookAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_MyInventory,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABomberMan_012025Character_Statics::NewProp_PowerUpCollection,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABomberMan_012025Character_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ABomberMan_012025Character_Statics::DependentSingletons[])() = {
@@ -379,10 +566,10 @@ ABomberMan_012025Character::~ABomberMan_012025Character() {}
 struct Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABomberMan_012025Character, ABomberMan_012025Character::StaticClass, TEXT("ABomberMan_012025Character"), &Z_Registration_Info_UClass_ABomberMan_012025Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_012025Character), 83827133U) },
+		{ Z_Construct_UClass_ABomberMan_012025Character, ABomberMan_012025Character::StaticClass, TEXT("ABomberMan_012025Character"), &Z_Registration_Info_UClass_ABomberMan_012025Character, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_012025Character), 2047664141U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_103319343(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_1548267968(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_MSIcito_Documents_Unreal_Projects_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
