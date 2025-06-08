@@ -1,22 +1,23 @@
 
 ```
-// ATENCIÓN: NO TOCAR, FUNCIONA Y NO SÉ POR QUÉ
+⚠️ ATENCIÓN: NO TOCAR, FUNCIONA Y NO SÉ POR QUÉ 🤯
 
-// Todo el código fue escrito entre las 2 y 3 de la mañana,
-// bajo los efectos combinados de cafeína, desesperación y un bug que
-// solo se manifestaba cuando nadie lo estaba mirando.
+🕐 Todo el código fue escrito entre las 2 y 3 de la mañana, 
+☕ bajo los efectos combinados de cafeína, desesperación y un bug que 
+👀 solo se manifestaba cuando nadie lo estaba mirando.
 
-// No funciona si lo entiendes.
-// No lo entiendes si funciona.
+❌ No funciona si lo entiendes. 
+✅ No lo entiendes si funciona.
 
-// Cualquier intento de refactorizar esto ha resultado en la invocación
-// de problemas dimensionales, loops infinitos y un extraño parpadeo en el
-// monitor que aún no puedo explicar.
+🔄 Cualquier intento de refactorizar esto ha resultado en la invocación 
+🌌 de problemas dimensionales, loops infinitos y un extraño parpadeo en el 
+🖥️ monitor que aún no puedo explicar.
 
-// Si necesitas cambiar esto, primero reza, luego haz una copia de seguridad,
-// y por último... suerte.
+🙏 Si necesitas cambiar esto, primero reza, luego haz una copia de seguridad, 
+🎲 y por último... suerte.
+
+
 ```
-
 ---
 
 # 🧨 BomberMan - Laboratorio de Patrones de Diseño
