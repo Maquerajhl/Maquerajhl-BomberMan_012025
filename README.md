@@ -2,7 +2,7 @@
 ```
 // ATENCIÓN: NO TOCAR, FUNCIONA Y NO SÉ POR QUÉ
 
-// Este fragmento de código fue escrito entre las 2 y 3 de la mañana,
+// Todo el código fue escrito entre las 2 y 3 de la mañana,
 // bajo los efectos combinados de cafeína, desesperación y un bug que
 // solo se manifestaba cuando nadie lo estaba mirando.
 
